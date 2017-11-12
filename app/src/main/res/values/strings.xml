@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Resistance TD</string>
+    <string name="app_name">Resistance\nTD</string>
+    <string name="single_player">Single Player</string>
+    <string name="multiplayer">Multiplayer</string>
 </resources>

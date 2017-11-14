@@ -4,6 +4,9 @@ import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by Mark Gavin on 11/2/2017.
  */
@@ -14,6 +17,8 @@ public class MainThread extends Thread {
     private SurfaceHolder surfaceHolder;
     private GamePanel gamePanel;
     private boolean running;
+    private int howMany = 0;
+    Timer timer = new Timer();
     public static Canvas canvas;
 
     public MainThread(SurfaceHolder surfaceHolder, GamePanel gamePanel)
@@ -46,6 +51,9 @@ public class MainThread extends Thread {
                 synchronized (surfaceHolder){
                     this.gamePanel.update();
                     this.gamePanel.draw(canvas);
+                    this.gamePanel.moveBacteriaDown();
+                    if(howMany % 5 == 0 && howMany != 0)
+                        this.gamePanel.spawnBacterium();
                 }
             }catch(Exception e) {e.printStackTrace();}
             finally{
@@ -70,6 +78,7 @@ public class MainThread extends Thread {
                 frameCount = 0;
                 totalTime = 0;
                 System.out.println(AVE_FPS);
+                howMany++;
             }
 
         }

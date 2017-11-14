@@ -3,8 +3,10 @@ package com.example.markgavin.resistancetd;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -18,38 +20,36 @@ import java.util.ArrayList;
 public class GamePanel extends SurfaceView  implements SurfaceHolder.Callback{
 
     private MainThread thread;
-    private RectBacteria enemy;
-    private Point bacteriaPoint;
-    private int trixHealth = 100;
-    private ArrayList<RectBacteria> enemies = new ArrayList<>();
-    private ArrayList<Point> enemyPlaces = new ArrayList<>();
-    private ObstacleManager om = new ObstacleManager();
+    private ArrayList<Bacteria> bacterias = new ArrayList<>();
+
     public GamePanel(Context context)
     {
         super(context);
         getHolder().addCallback(this);
         thread = new MainThread(getHolder(), this);
-        /*
-        player = new RectPlayer(new Rect(100,0,200,100), Color.rgb(0,128,0));
-        playerPoint = new Point(Constants.SCREEN_WIDTH/2 - player.getRectangle().width()/2
-                ,player.getRectangle().height()/2);
-        */
-        /*
-        enemies.add(om.spawnBacterium());
-        enemyPlaces.add(new Point(Constants.SCREEN_WIDTH/2 - player.getRectangle().width()/2
-                ,player.getRectangle().height()/2));
-                */
-        enemy = new RectBacteria();
-        bacteriaPoint = new Point(Constants.SCREEN_WIDTH/2 - enemy.getRectangle().width()/2
-                ,enemy.getRectangle().height()/2);
+        spawnBacterium();
         setFocusable(true);
     }
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height)
     {
-
+        tryDrawing(holder);
     }
 
+    private void tryDrawing(SurfaceHolder holder) {
+        Log.i("", "Trying to draw...");
+
+        Canvas canvas = holder.lockCanvas();
+        if (canvas == null) {
+            Log.e("", "Cannot draw onto the canvas as it's null");
+        } else {
+            draw(canvas);
+            holder.unlockCanvasAndPost(canvas);
+        }
+    }
+    public void spawnBacterium() {
+        bacterias.add(new Bacteria(Constants.SCREEN_WIDTH/2-50, 0,5));
+    }
     @Override
     public void surfaceCreated(SurfaceHolder holder)
     {
@@ -89,25 +89,30 @@ public class GamePanel extends SurfaceView  implements SurfaceHolder.Callback{
     */
     public void update()
     {
-        /*
-        for(int i = 0 ; i < enemies.size(); i++) {
-            enemies.get(i).update(enemyPlaces.get(i));
-            enemyPlaces.get(i).set(enemyPlaces.get(i).x, enemyPlaces.get(i).y + 5);
-        }
-        */
-        enemy.update(bacteriaPoint);
 
     }
-
+    public void moveBacteriaDown(){
+        for(Bacteria b: bacterias){
+            b.moveDown();
+        }
+    }
+    public void removeOut()
+    {
+        for(Bacteria f:bacterias)
+            if(f.getY() > Constants.SCREEN_HEIGHT)
+                bacterias.remove(f);
+    }
     @Override
     public void draw(Canvas canvas){
 
         super.draw(canvas);
+        Paint paint = new Paint();
         canvas.drawColor(Color.rgb(255, 182, 193));
-        /*
-        for(int i = 0 ; i < enemies.size(); i++)
-            enemies.get(i).draw(canvas);
-            */
-        enemy.draw(canvas);
+        removeOut();
+        for(Bacteria f:bacterias){
+            paint.setColor(f.getColor());
+            Rect r = new Rect(f.getX(), f.getY(), f.getX()+100, f.getY()+100);
+            canvas.drawRect(r, paint);
+            }
     }
 }

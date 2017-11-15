@@ -21,12 +21,20 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		// set to full screen
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+		// remove title
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
+		// shared preferences
 		dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		checkOpeningViewed();
+
+		// initialize elements and add listeners
 		initAttributes();
     }
 
@@ -40,7 +48,6 @@ public class MainActivity extends Activity {
 				startGame(0);
 			}
 		});
-
 		tvMainMultiplayer.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {

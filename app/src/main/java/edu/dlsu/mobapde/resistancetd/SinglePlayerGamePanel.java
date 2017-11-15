@@ -14,7 +14,7 @@ import java.util.Iterator;
 
 public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.Callback, GamePanelInitializer {
 
-	public static final int MAX_INIT = 10;
+	public static final int MAX_INIT = 8;
 
     public final double scale;
 	private int currInit;
@@ -39,28 +39,39 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 		currInit = 0;
 
 		new Thread() {
+
+            private void initUpdate () {
+                currInit ++;
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
 			@Override
 			public void run() {
                 bacteriaIcon = BitmapFactory.decodeResource(getResources(), R.drawable.game_logo_icon);
-                currInit ++;
+                initUpdate ();
 
                 entities = new ArrayList<>();
-                currInit ++;
+                initUpdate ();
 
                 int x = (int)(Constants.SCREEN_WIDTH/2 - 50*scale);
-                currInit ++;
+                initUpdate ();
 
                 int y = (int) -(100*scale);
-                currInit ++;
+                initUpdate ();
 
                 int width = (int) (100*scale);
-                currInit ++;
+                initUpdate ();
 
                 int height = (int) (100*scale);
-                currInit ++;
+                initUpdate ();
 
                 spawner = new Spawner(x, y, width, height);
                 GameEntity e = spawner.spawn(Bacteria.class, bacteriaIcon);
+                initUpdate ();
 
                 if(e != null)
                     entities.add (e);
@@ -91,11 +102,6 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 
 	@Override
 	public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-        Canvas c = surfaceHolder.lockCanvas();
-        if (c != null) {
-            draw(c);
-            surfaceHolder.unlockCanvasAndPost(c);
-        }
 	}
 
 	@Override

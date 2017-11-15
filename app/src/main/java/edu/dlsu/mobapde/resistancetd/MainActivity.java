@@ -86,7 +86,7 @@ public class MainActivity extends Activity {
 			while (!(gpi.isInitialized())) {
 				publishProgress(gpi.status());
 				try {
-					Thread.sleep(1);
+					Thread.sleep(1000/60);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

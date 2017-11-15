@@ -160,9 +160,11 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 
 	public void removeOut()
 	{
+		/*
 		for(Bacteria f:bacterias)
 			if(f.getY() > Constants.SCREEN_HEIGHT)
 				bacterias.remove(f);
+				*/
 	}
 
 	@Override
@@ -175,6 +177,11 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 		for(Bacteria f:bacterias){
 			paint.setColor(f.getColor());
 			Rect r = new Rect(f.getX(), f.getY(), f.getX()+100, f.getY()+100);
+			canvas.drawRect(r, paint);
+		}
+		for(WhiteSlot x:spawnPlaces){
+			paint.setColor(x.getColor());
+			Rect r = new Rect(x.getX(), x.getY(), x.getX()+100, x.getY()+100);
 			canvas.drawRect(r, paint);
 		}
 	}

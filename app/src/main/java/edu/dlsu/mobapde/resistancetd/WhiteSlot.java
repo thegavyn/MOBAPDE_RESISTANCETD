@@ -1,4 +1,4 @@
-package com.example.markgavin.resistancetd;
+package edu.dlsu.mobapde.resistancetd;
 
 import android.graphics.Color;
 
@@ -6,7 +6,7 @@ import android.graphics.Color;
  * Created by Mark Gavin on 11/15/2017.
  */
 
-public class whiteSlot {
+public class WhiteSlot {
     private int x;
     private int y;
     private int color;
@@ -30,7 +30,7 @@ public class whiteSlot {
         this.level = level;
     }
 
-    public whiteSlot(int x, int y) {
+    public WhiteSlot(int x, int y) {
         this.x = x;
         this.y = y;
         this.color = Color.rgb(255, 244, 124);

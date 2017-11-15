@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
@@ -24,6 +25,11 @@ public class MainActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        Constants.SCREEN_WIDTH = dm.widthPixels;
+        Constants.SCREEN_HEIGHT = dm.heightPixels;
 
 		dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		checkOpeningViewed();
@@ -80,7 +86,7 @@ public class MainActivity extends Activity {
 			while (!(gpi.isInitialized())) {
 				publishProgress(gpi.status());
 				try {
-					Thread.sleep(1000/60);
+					Thread.sleep(1);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

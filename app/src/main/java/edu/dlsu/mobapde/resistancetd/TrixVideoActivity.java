@@ -1,3 +1,14 @@
+/**
+ * TrixVideoActivity is called if the user opened the app for
+ * the first time. This will play the video of
+ * Mr. Patrick Ivan S. Altea tripping after doing a
+ * Boruto's dad run.
+ *
+ * @author: Pillejera, Jasper Glen
+ * @author: Sanchez, Mark Gavin
+ * @author: Valenzuela, Jolene
+ */
+
 package edu.dlsu.mobapde.resistancetd;
 
 import android.app.Activity;

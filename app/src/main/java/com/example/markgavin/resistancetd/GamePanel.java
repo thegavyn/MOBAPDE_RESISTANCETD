@@ -21,14 +21,16 @@ public class GamePanel extends SurfaceView  implements SurfaceHolder.Callback{
 
     private MainThread thread;
     private ArrayList<Bacteria> bacterias = new ArrayList<>();
-
+    private ArrayList<whiteSlot> spawnPlaces = new ArrayList<>();
     public GamePanel(Context context)
     {
         super(context);
         getHolder().addCallback(this);
         thread = new MainThread(getHolder(), this);
         spawnBacterium();
+        createSlots();
         setFocusable(true);
+
     }
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height)
@@ -72,21 +74,40 @@ public class GamePanel extends SurfaceView  implements SurfaceHolder.Callback{
             retry = false;
         }
     }
-    /*
+    public void createSlots()
+    {
+        int iteratorY = Constants.SCREEN_HEIGHT;
+        int iteratorX = Constants.SCREEN_WIDTH;
+        for(int i = 0; i < 8; i++) {
+            spawnPlaces.add(new whiteSlot(Constants.SCREEN_WIDTH / 6 - 100, Constants.SCREEN_HEIGHT / 10 + 200*i));
+            spawnPlaces.add(new whiteSlot(Constants.SCREEN_WIDTH / 4, Constants.SCREEN_HEIGHT / 10 + 200*i));
+
+            spawnPlaces.add(new whiteSlot(Constants.SCREEN_WIDTH - Constants.SCREEN_WIDTH / 4 + 100, Constants.SCREEN_HEIGHT / 10 + 200*i));
+            spawnPlaces.add(new whiteSlot(Constants.SCREEN_WIDTH - Constants.SCREEN_WIDTH / 4 - 100, Constants.SCREEN_HEIGHT / 10 + 200*i));
+        }
+
+    }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-        switch(event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-            case MotionEvent.ACTION_MOVE:
-                playerPoint.set((int)event.getX(), (int)event.getY());
-                break;
+        for(whiteSlot x:spawnPlaces) {
+            if ((x.getX() - 100) <= event.getX() && (x.getX() + 100) >= event.getX()
+                    && (x.getY() - 100) <= event.getY() && (x.getY() + 100) >= event.getY())
+                spawnTower(x);
         }
         return true;
         //return super.onTouchEvent(event);
     }
-    */
+
+    public void spawnTower(whiteSlot x) {
+        x.setColor(Color.rgb(255, 255, 255));
+        x.setLevel(1);
+        x.setAttackPower(50);
+        x.setTaken(true);
+    }
+
     public void update()
     {
 
@@ -114,5 +135,10 @@ public class GamePanel extends SurfaceView  implements SurfaceHolder.Callback{
             Rect r = new Rect(f.getX(), f.getY(), f.getX()+100, f.getY()+100);
             canvas.drawRect(r, paint);
             }
+        for(whiteSlot x:spawnPlaces){
+            paint.setColor(x.getColor());
+            Rect r = new Rect(x.getX(), x.getY(), x.getX()+100, x.getY()+100);
+            canvas.drawRect(r, paint);
+        }
     }
 }

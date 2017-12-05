@@ -24,7 +24,7 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 	private MainThread thread;
 	private ArrayList<Bacteria> bacterias = new ArrayList<>();
 	private ArrayList<WhiteSlot> spawnPlaces = new ArrayList<>();
-
+	private int currentCells = 200;
 	public SinglePlayerGamePanel(Context context) {
 		super(context);
 
@@ -103,8 +103,16 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 	{
 		for(WhiteSlot x:spawnPlaces) {
 			if ((x.getX() - 100) <= event.getX() && (x.getX() + 100) >= event.getX()
-					&& (x.getY() - 100) <= event.getY() && (x.getY() + 100) >= event.getY())
-				spawnTower(x);
+					&& (x.getY() - 100) <= event.getY() && (x.getY() + 100) >= event.getY()) {
+				if(!x.isTaken() && currentCells >= 50) {
+					spawnTower(x);
+					currentCells = currentCells - 50;
+				}
+				else if(x.isTaken())
+				{
+					upgradeTower(x);
+				}
+			}
 		}
 		return true;
 		//return super.onTouchEvent(event);
@@ -145,6 +153,24 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 		x.setLevel(1);
 		x.setAttackPower(50);
 		x.setTaken(true);
+	}
+
+	public void upgradeTower(WhiteSlot x)
+	{
+		if(x.getLevel() == 1 && currentCells >= 100)
+		{
+			currentCells = currentCells - 100;
+			x.setLevel(2);
+			x.setAttackPower(100);
+			x.setColor(Color.rgb(206, 20, 73));
+		}
+		else if(x.getLevel() == 2 && currentCells >= 200)
+		{
+			currentCells = currentCells - 200;
+			x.setLevel(3);
+			x.setAttackPower(150);
+			x.setColor(Color.rgb(48, 48, 48));
+		}
 	}
 
 	public void update()

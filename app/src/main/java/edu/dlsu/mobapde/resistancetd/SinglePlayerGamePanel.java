@@ -24,7 +24,8 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 	private MainThread thread;
 	private ArrayList<Bacteria> bacterias = new ArrayList<>();
 	private ArrayList<WhiteSlot> spawnPlaces = new ArrayList<>();
-	private int currentCells = 200;
+	private int currentCells = 300;
+	public int bacLimit = 10;
 	public SinglePlayerGamePanel(Context context) {
 		super(context);
 
@@ -114,7 +115,7 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 				}
 			}
 		}
-		return true;
+		return false;
 		//return super.onTouchEvent(event);
 	}
 
@@ -145,7 +146,11 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 	}
 
 	public void spawnBacterium() {
-		bacterias.add(new Bacteria(Constants.SCREEN_WIDTH/2-50, 0,5));
+
+		if(bacterias.size() <= bacLimit )
+			bacterias.add(new Bacteria(Constants.SCREEN_WIDTH/2-50, 0,5));
+
+		System.out.println("Current Bacteria" + bacterias.size());
 	}
 
 	public void spawnTower(WhiteSlot x) {

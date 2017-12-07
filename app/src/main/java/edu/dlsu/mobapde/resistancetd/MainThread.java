@@ -51,8 +51,10 @@ public class MainThread extends Thread {
                     this.gamePanel.update();
                     this.gamePanel.draw(canvas);
                     this.gamePanel.moveBacteriaDown();
-                    if(howMany % 5 == 0 && howMany != 0)
+
+                    if(howMany % 5 == 0 && howMany != 0) {
                         this.gamePanel.spawnBacterium();
+                    }
                 }
             }catch(Exception e) {e.printStackTrace();}
             finally{

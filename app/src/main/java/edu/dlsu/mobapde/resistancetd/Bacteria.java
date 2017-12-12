@@ -16,6 +16,7 @@ public class Bacteria {
     private Rect rect;
     private int pace;
     private int attackPower;
+    private int range;
 
     public Bacteria(int x, int y, int pace) {
         this.x = x;
@@ -33,6 +34,10 @@ public class Bacteria {
 
     public int getAttackPower() {
         return attackPower;
+    }
+
+    public int getRange() {
+        return range;
     }
 
     public int getX() {

@@ -124,11 +124,11 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 		int iteratorY = Constants.SCREEN_HEIGHT;
 		int iteratorX = Constants.SCREEN_WIDTH;
 		for(int i = 0; i < 8; i++) {
-			spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH / 6 - 100, Constants.SCREEN_HEIGHT / 10 + 200*i));
-			spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH / 4, Constants.SCREEN_HEIGHT / 10 + 200*i));
+			spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH / 6 - 100, Constants.SCREEN_HEIGHT / 10 + 200*i, Constants.SCREEN_WIDTH/2));
+			spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH / 4, Constants.SCREEN_HEIGHT / 10 + 200*i, Constants.SCREEN_WIDTH/4));
 
-			spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH - Constants.SCREEN_WIDTH / 4 + 100, Constants.SCREEN_HEIGHT / 10 + 200*i));
-			spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH - Constants.SCREEN_WIDTH / 4 - 100, Constants.SCREEN_HEIGHT / 10 + 200*i));
+			spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH - Constants.SCREEN_WIDTH / 4 + 100, Constants.SCREEN_HEIGHT / 10 + 200*i, Constants.SCREEN_WIDTH/2));
+			spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH - Constants.SCREEN_WIDTH / 4 - 100, Constants.SCREEN_HEIGHT / 10 + 200*i, Constants.SCREEN_WIDTH/4));
 		}
 
 	}
@@ -159,6 +159,20 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 		x.setAttackPower(50);
 		x.setTaken(true);
 	}
+
+	public void detectBacteria()
+    {
+        for(WhiteSlot x:spawnPlaces) {
+
+            for(Bacteria f:bacterias){
+				if(x.getX()+50+x.getRange() >= f.getX() && x.getX()-50+x.getRange() <= f.getX()
+						&& x.getY()+50+x.getRange() >= f.getY() && x.getY()-50+x.getRange() <= f.getY())
+					System.out.println("HELLO I AM THE CARABAO");
+            }
+        }
+
+}
+
 
 	public void upgradeTower(WhiteSlot x)
 	{

@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
 
     private void initAttributes () {
 		tvMainSinglePlayer = findViewById(R.id.tvMainSinglePlayer);
-		tvMainMultiplayer = findViewById(R.id.tvMainMultiplayer);
+		//tvMainMultiplayer = findViewById(R.id.tvMainMultiplayer);
 
 		tvMainSinglePlayer.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -46,13 +46,14 @@ public class MainActivity extends Activity {
 				startGame(0);
 			}
 		});
-
+		/*
 		tvMainMultiplayer.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				startGame(1);
 			}
 		});
+		*/
 	}
 
 	private void startGame (int gameMode) {

@@ -90,11 +90,15 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
         int iteratorY = Constants.SCREEN_HEIGHT;
         int iteratorX = Constants.SCREEN_WIDTH;
         for(int i = 0; i < 8; i++) {
-            spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH / 6 - 100, Constants.SCREEN_HEIGHT / 10 + 200*i));
-            spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH / 4, Constants.SCREEN_HEIGHT / 10 + 200*i));
+            spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH / 6 - 100, Constants.SCREEN_HEIGHT / 10 + 200*i,
+                    Constants.SCREEN_WIDTH/2));
+            spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH / 4, Constants.SCREEN_HEIGHT / 10 + 200*i,
+                    Constants.SCREEN_WIDTH/4));
 
-            spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH - Constants.SCREEN_WIDTH / 4 + 100, Constants.SCREEN_HEIGHT / 10 + 200*i));
-            spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH - Constants.SCREEN_WIDTH / 4 - 100, Constants.SCREEN_HEIGHT / 10 + 200*i));
+            spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH - Constants.SCREEN_WIDTH / 4 + 100, Constants.SCREEN_HEIGHT / 10 + 200*i,
+                    Constants.SCREEN_WIDTH/2));
+            spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH - Constants.SCREEN_WIDTH / 4 - 100, Constants.SCREEN_HEIGHT / 10 + 200*i,
+                    Constants.SCREEN_WIDTH/4));
         }
 
     }
@@ -117,6 +121,25 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 		gameThread.start();
 	}
 
+    public void detectBacteria()
+    {
+
+        for(WhiteSlot x:spawnPlaces) {
+
+            for (GameEntity f: entities){
+                if ((f.getX() - x.getX())*(f.getX() - x.getX()) +
+                        (f.getY() - x.getY())*(f.getY() - x.getY()) <= x.getRange()*x.getRange())
+                    System.out.println("Pumasok");
+                /*
+                if(x.getX()+50+x.getRange() >= f.getX() && x.getX()-50+x.getRange() <= f.getX()
+                        && x.getY()+50+x.getRange() >= f.getY() && x.getY()-50+x.getRange() <= f.getY())
+                    System.out.println("HELLO I AM THE CARABAO");
+                    */
+
+            }
+        }
+
+    }
 	@Override
 	public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
 	}
@@ -198,7 +221,7 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 
             entities.add (ge);
         }
-
+    detectBacteria();
 	}
 
 	@Override

@@ -23,11 +23,11 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-		// set to full screen
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        Constants.SCREEN_WIDTH = dm.widthPixels;
+        Constants.SCREEN_HEIGHT = dm.heightPixels;
 
-		// shared preferences
 		dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		checkOpeningViewed();
 
@@ -47,7 +47,7 @@ public class MainActivity extends Activity {
 
     private void initAttributes () {
 		tvMainSinglePlayer = findViewById(R.id.tvMainSinglePlayer);
-		tvMainMultiplayer = findViewById(R.id.tvMainMultiplayer);
+		//tvMainMultiplayer = findViewById(R.id.tvMainMultiplayer);
 
 		tvMainSinglePlayer.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -55,12 +55,14 @@ public class MainActivity extends Activity {
 				startGame(0);
 			}
 		});
+		/*
 		tvMainMultiplayer.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				startGame(1);
 			}
 		});
+		*/
 	}
 
 	public void startGame (int gameMode) {

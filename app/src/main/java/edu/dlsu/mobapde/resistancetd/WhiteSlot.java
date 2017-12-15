@@ -13,6 +13,7 @@ public class WhiteSlot {
     private boolean isTaken;
     private int attackPower;
     private int level;
+    private int range;
 
     public int getAttackPower() {
         return attackPower;
@@ -30,14 +31,17 @@ public class WhiteSlot {
         this.level = level;
     }
 
-    public WhiteSlot(int x, int y) {
+    public WhiteSlot(int x, int y, int range) {
         this.x = x;
         this.y = y;
         this.color = Color.rgb(255, 244, 124);
         isTaken = false;
+        this.range = range;
     }
 
-
+    public int getRange() {
+        return range;
+    }
 
     public int getX() {
         return x;

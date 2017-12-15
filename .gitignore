@@ -8,3 +8,9 @@
 /captures
 .externalNativeBuild
 /app/build.gradle
+
+\.idea/modules\.xml
+
+\.idea/
+
+app/

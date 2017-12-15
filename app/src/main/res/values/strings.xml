@@ -1,10 +1,6 @@
 <resources>
-    <string name="app_name">Resistance\nTD</string>
-    <string name="single_player">Start Game</string>
-    <string name="multiplayer">Scores</string>
-    <string name="loading">Loading</string>
-    <string name="failed_message">You failed to help Trix :(</string>
-    <string name="game_over">Game Over!</string>
-    <string name="retry">Retry</string>
-    <string name="quit">Quit</string>
+	<string name="app_name">Resistance\nTD</string>
+	<string name="single_player">Single Player</string>
+	<string name="multiplayer">Multiplayer</string>
+	<string name="loading">Loading</string>
 </resources>

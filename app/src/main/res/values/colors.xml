@@ -5,8 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="mainBgStart">#8C00FF</color>
     <color name="mainBgEnd">#3C006D</color>
-    <color name="gameoverBgStart">#ff0000</color>
-    <color name="gameoverBgEnd">#6b0000</color>
     <color name="mainTitleColor">#ce0b4c</color>
     <color name="loadingProgressBar">#15b0b6</color>
     <color name="white">#FFF</color>

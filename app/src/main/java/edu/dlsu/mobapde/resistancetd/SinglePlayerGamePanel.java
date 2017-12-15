@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -20,7 +22,8 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 	private int currInit;
     private Bitmap bacteriaIcon;
     private SinglePlayerGameThread gameThread;
-
+    private ArrayList<WhiteSlot> spawnPlaces = new ArrayList<>();
+    private int currentCells = 200;
     private Spawner spawner;
     private ArrayList<GameEntity> entities;
 
@@ -31,6 +34,7 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 
 		getHolder().addCallback(this);
 		gameThread = new SinglePlayerGameThread(getHolder(), this);
+        createSlots();
 		setFocusable(true);
 	}
 
@@ -81,8 +85,21 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 		}.start();
 
 	}
+    public void createSlots()
+    {
+        int iteratorY = Constants.SCREEN_HEIGHT;
+        int iteratorX = Constants.SCREEN_WIDTH;
+        for(int i = 0; i < 8; i++) {
+            spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH / 6 - 100, Constants.SCREEN_HEIGHT / 10 + 200*i));
+            spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH / 4, Constants.SCREEN_HEIGHT / 10 + 200*i));
 
-	@Override
+            spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH - Constants.SCREEN_WIDTH / 4 + 100, Constants.SCREEN_HEIGHT / 10 + 200*i));
+            spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH - Constants.SCREEN_WIDTH / 4 - 100, Constants.SCREEN_HEIGHT / 10 + 200*i));
+        }
+
+    }
+
+    @Override
 	public int status() {
 		return (int)Math.floor(currInit * 100.0 /MAX_INIT);
 	}
@@ -118,8 +135,46 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+        for(WhiteSlot x:spawnPlaces) {
+            if ((x.getX() - 100) <= event.getX() && (x.getX() + 100) >= event.getX()
+                    && (x.getY() - 100) <= event.getY() && (x.getY() + 100) >= event.getY()) {
+                if(!x.isTaken() && currentCells >= 50) {
+                    spawnTower(x);
+                    currentCells = currentCells - 50;
+                }
+                else if(x.isTaken())
+                {
+                    upgradeTower(x);
+                }
+            }
+        }
 		return false;
 	}
+
+    public void spawnTower(WhiteSlot x) {
+        x.setColor(Color.rgb(255, 255, 255));
+        x.setLevel(1);
+        x.setAttackPower(50);
+        x.setTaken(true);
+    }
+
+    public void upgradeTower(WhiteSlot x)
+    {
+        if(x.getLevel() == 1 && currentCells >= 100)
+        {
+            currentCells = currentCells - 100;
+            x.setLevel(2);
+            x.setAttackPower(100);
+            x.setColor(Color.rgb(206, 20, 73));
+        }
+        else if(x.getLevel() == 2 && currentCells >= 200)
+        {
+            currentCells = currentCells - 200;
+            x.setLevel(3);
+            x.setAttackPower(150);
+            x.setColor(Color.rgb(48, 48, 48));
+        }
+    }
 
 	public void update () {
         for (GameEntity ge: entities)
@@ -150,8 +205,14 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 	public void draw(Canvas canvas) {
         super.draw(canvas);
         canvas.drawColor (Color.rgb(255, 182, 193));
-
+        Paint paint = new Paint();
         for (GameEntity e: entities)
             e.draw(canvas);
+
+        for(WhiteSlot x:spawnPlaces){
+            paint.setColor(x.getColor());
+            Rect r = new Rect(x.getX(), x.getY(), x.getX()+100, x.getY()+100);
+            canvas.drawRect(r, paint);
+        }
 	}
 }

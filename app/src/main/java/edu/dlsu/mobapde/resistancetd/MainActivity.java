@@ -63,7 +63,7 @@ public class MainActivity extends Activity {
 		});
 	}
 
-	private void startGame (int gameMode) {
+	public void startGame (int gameMode) {
 		switch (gameMode) {
 			case 0:
 				new GameLoader().execute(new SinglePlayerGamePanel(this));

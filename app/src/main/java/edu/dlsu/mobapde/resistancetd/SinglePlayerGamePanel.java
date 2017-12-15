@@ -10,6 +10,12 @@ import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import java.util.ArrayList;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -27,6 +33,12 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
     private Spawner spawner;
     private ArrayList<GameEntity> entities;
 
+	// from Gavin's code
+	private MainThread thread;
+	private ArrayList<Bacteria> bacterias = new ArrayList<>();
+	private ArrayList<WhiteSlot> spawnPlaces = new ArrayList<>();
+	private int currentCells = 300;
+	public int bacLimit = 10;
 	public SinglePlayerGamePanel(Context context) {
 		super(context);
 
@@ -113,6 +125,8 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 		return currInit == MAX_INIT;
 	}
 
+
+	// from Gavin's code
 	@Override
 	public void surfaceCreated(SurfaceHolder surfaceHolder) {
 		gameThread = new SinglePlayerGameThread(getHolder(), this);
@@ -143,6 +157,11 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 	@Override
 	public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
 	}
+
+	/* ------------------------- WARNING -------------------------
+	 * ALL OF THE FOLLOWING CODE
+	 * WERE DERIVED FROM CleanCanvas (Gavin)
+	 * ----------------------------------------------------------- */
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder surfaceHolder) {

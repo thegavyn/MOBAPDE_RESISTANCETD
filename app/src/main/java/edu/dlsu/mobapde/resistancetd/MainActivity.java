@@ -22,9 +22,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main);
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -33,6 +30,18 @@ public class MainActivity extends Activity {
 
 		dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		checkOpeningViewed();
+
+		// from Gavin's code
+		DisplayMetrics dm = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(dm);
+		Constants.SCREEN_WIDTH = dm.widthPixels;
+		Constants.SCREEN_HEIGHT = dm.heightPixels;
+
+		// remove title
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.activity_main);
+
+		// initialize elements and add listeners
 		initAttributes();
     }
 
@@ -56,7 +65,7 @@ public class MainActivity extends Activity {
 		*/
 	}
 
-	private void startGame (int gameMode) {
+	public void startGame (int gameMode) {
 		switch (gameMode) {
 			case 0:
 				new GameLoader().execute(new SinglePlayerGamePanel(this));

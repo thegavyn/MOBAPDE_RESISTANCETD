@@ -1,78 +1,74 @@
 package edu.dlsu.mobapde.resistancetd;
 
-import android.graphics.Color;
-import android.graphics.Rect;
+import android.graphics.Bitmap;
 
-        import android.graphics.Rect;
+import java.util.ArrayList;
 
 /**
  * Created by Mark Gavin on 11/15/2017.
+ *
+ * Edited by Jasper 11/15/2017.
  */
 
 public class Bacteria {
-    private int x;
-    private int y;
-    private int color;
-    private Rect rect;
-    private int pace;
-    private int attackPower;
 
-    public Bacteria(int x, int y, int pace) {
-        this.x = x;
-        this.y = y;
-        this.color = Color.rgb(0, 128, 0);;
-        this.pace = pace;
+    private static ArrayList<Bitmap> icon = new ArrayList<>();
+    private static final int baseMoveSpeed = 30;
+    private static final int baseAttackDamage = 20;
+    private static final int baseHealth = 50;
+    private static final double scaleMoveSpeed = 1;
+    private static final double scaleAttackDamage = 1;
+    private static final double scaleHealth = 100;
+    private static final int maxMoveSpeed = 100;
+    private static final int maxAttackDamage = 50000;
+    private static final int maxHealth = Integer.MAX_VALUE;
+    private static final int baseCells = 5;
+    private static final int scaleCells = 1;
+    private static final int baseScore = 5;
+    private static final int scaleScore = 2;
+
+
+    public static void setIcon (Bitmap icon) {
+        Bacteria.icon.add(icon);
     }
 
-    public Bacteria(int x, int y, int color, Rect rect) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        this.rect = rect;
+    public static Bitmap getIcon (int level) {
+        return Bacteria.icon.get((level - 1) % icon.size());
     }
 
-    public int getAttackPower() {
-        return attackPower;
+    public static int getAttackDamage (int level) {
+        int damage = (int)(level * scaleAttackDamage + baseAttackDamage);
+
+        if (damage > maxAttackDamage)
+            return maxAttackDamage;
+
+        return damage;
     }
 
-    public int getX() {
-        return x;
+    public static int getMoveSpeed (int level) {
+        int speed = (int)(level * scaleMoveSpeed + baseMoveSpeed);
+
+        if (speed > maxMoveSpeed)
+            return maxMoveSpeed;
+
+        return speed;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public static int getHealth (int level) {
+        long health = (long)((long)level * scaleHealth + baseHealth);
+
+        if (health > maxHealth)
+            return maxHealth;
+
+        return (int)health;
     }
 
-    public int getY() {
-        return y;
+    public static int getCells (int level) {
+        return baseCells + scaleCells * level;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public static int getScore (int level) {
+        return baseScore + scaleScore * level;
     }
 
-    public int getColor() {
-        return color;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
-    }
-
-    public void moveDown(){
-        this.y+=this.pace;
-    }
-
-    public Bacteria(Rect rect) {
-        this.rect = rect;
-    }
-
-    public Rect getRect() {
-        return rect;
-    }
-
-    public void setRect(Rect rect) {
-        this.rect = rect;
-    }
 }
-

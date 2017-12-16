@@ -1,57 +1,261 @@
 package edu.dlsu.mobapde.resistancetd;
 
+import android.app.Activity;
 import android.content.Context;
-import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
-import java.util.ArrayList;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.util.Log;
+import android.util.DisplayMetrics;
+import android.view.MotionEvent;
+import android.view.SurfaceHolder;
 
-/**
- * Merged by Jo w/ Gavin's CleanCanvas on 11/15/2017
- */
+import java.util.ArrayList;
+import java.util.Iterator;
 
-public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.Callback, GamePanelInitializer {
+public class SinglePlayerGamePanel extends GamePanel {
 
-	private static final int MAX_INIT = 100;
-	private int currInit;
+    //initialization
+	public static final int MAX_INIT = 100;
+    private int currInit;
 
-	// from Gavin's code
-	private MainThread thread;
-	private ArrayList<Bacteria> bacterias = new ArrayList<>();
-	private ArrayList<WhiteSlot> spawnPlaces = new ArrayList<>();
-	private int currentCells = 200;
+    //screen values
+    private final int screenWidth;
+    private final int screenHeight;
+    private final double scale;
+
+    //game loop
+    private GameThread gameThread;
+
+    //game resources
+    private static final int gameEntityWidth = 70;
+    private static final int gameEntityHeight = 70;
+    private static final int textSize = 20;
+    private static final int strokeWidth = 10;
+    private final int scaledEntityWidth;
+    private final int scaledEntityHeight;
+    private final int scaledTextSize;
+    private final int scaledStrokeWidth;
+    private Bitmap bacteriaIcon;
+    private Bitmap bacteriaIcon1;
+    private Bitmap whiteBloodCellIcon;
+    private Bitmap whiteBloodCellIcon1;
+    private Bitmap whiteBloodCellIcon2;
+    private Bitmap backgroundIcon;
+    private Rect bgRect;
+
+    // stage text
+    private int stageLevel;
+    private String stageString;
+    private float stageLevelX;
+    private float stageLevelY;
+    private Paint stageLevelPaint;
+
+    // trix text
+    private int trixHP;
+    private String trixString;
+    private float trixHPX;
+    private float trixHPY;
+    private Paint trixHPPaint;
+
+    // cells text
+    private int cells;
+    private String cellsString;
+    private float cellsX;
+    private float cellsY;
+    private Paint cellsPaint;
+
+    // score text
+    private int score;
+    private String scoreString;
+    private float scoreX;
+    private float scoreY;
+    private Paint scorePaint;
+
+    //game entities
+    private final ArrayList<EnemySpawner> enemySpawners;
+    private final ArrayList<TowerSpawner> towerSpawners;
+    private final ArrayList<Tower> towers;
+    private final ArrayList<Enemy> enemies;
+    private final ArrayList<Projectile> projectiles;
+
+    //sfx
+    private BackgroundMusicManager bmm;
+    private SoundEffectsManager sem;
+
 	public SinglePlayerGamePanel(Context context) {
 		super(context);
 
-		// from Gavin's code
-		getHolder().addCallback(this);
-		thread = new MainThread(getHolder(), this);
-		spawnBacterium();
-		createSlots();
-		setFocusable(true);
+		DisplayMetrics dm = getResources().getDisplayMetrics();
+		scale = dm.density;
+		screenWidth = dm.widthPixels;
+        screenHeight = dm.heightPixels;
+
+        scaledEntityWidth = (int)(gameEntityWidth * scale);
+        scaledEntityHeight = (int)(gameEntityHeight * scale);
+        scaledTextSize = (int)(textSize * scale);
+        scaledStrokeWidth = (int)(strokeWidth * scale);
+
+        enemySpawners = new ArrayList<>();
+        towerSpawners = new ArrayList<>();
+        towers = new ArrayList<>();
+        enemies = new ArrayList<>();
+        projectiles = new ArrayList<>();
+
+        // Background Music
+        bmm = new BackgroundMusicManager(context);
+        bmm.playMusic(BackgroundMusicManager.GAME_PANEL);
+
+        // Sound effects
+        sem = new SoundEffectsManager(context);
+
+        getHolder().addCallback(this);
+        getHolder().setFixedSize(screenWidth, screenHeight);
+        setFocusable(true);
 	}
 
 	@Override
 	public void initialize() {
 		currInit = 0;
 
-		new Thread(){
+		new Thread() {
+
+		    private void initIcons () {
+                bgRect = new Rect();
+                bgRect.set(0, 0, screenWidth, screenHeight);
+
+                bacteriaIcon = BitmapFactory.decodeResource(getResources(), R.drawable.bac_1);
+                bacteriaIcon1 = BitmapFactory.decodeResource(getResources(), R.drawable.bac_2);
+                whiteBloodCellIcon = BitmapFactory.decodeResource(getResources(), R.drawable.wbc_lvl1);
+                whiteBloodCellIcon1 = BitmapFactory.decodeResource(getResources(), R.drawable.wbc_lvl2);
+                whiteBloodCellIcon2 = BitmapFactory.decodeResource(getResources(), R.drawable.wbc_lvl3);
+                backgroundIcon = BitmapFactory.decodeResource(getResources(), R.drawable.bloodvessel_bg);
+
+                Bacteria.setIcon(bacteriaIcon);
+                Bacteria.setIcon(bacteriaIcon1);
+                WBC.setIcon(whiteBloodCellIcon);
+                WBC.setIcon(whiteBloodCellIcon1);
+                WBC.setIcon(whiteBloodCellIcon2);
+
+                initUpdate();
+            }
+
+            private void initEnemySpawners () {
+                int x = screenWidth/2 - scaledEntityWidth/2;
+                int y = -scaledEntityHeight * 2;
+
+                for (int i = 0; i < 15; i++) {
+                    enemySpawners.add(new EnemySpawner(x, y, scaledEntityWidth, scaledEntityHeight));
+                    y -= scaledEntityHeight;
+                    y -= scaledEntityHeight;
+                }
+
+                initUpdate();
+            }
+
+            private void initTowerSpawner () {
+		        int pad = (int) (10 * scale);
+		        int w = 3*scaledEntityWidth/4;
+		        int h = 3*scaledEntityHeight/4;
+                int y = (screenHeight - pad * 8 - h * 8) / 2;
+
+		        for (int i = 0; i < 8; i++) {
+                    towerSpawners.add(new TowerSpawner(pad,y + i *(h + pad), w, h));
+                    towerSpawners.add(new TowerSpawner(w + 2 * pad, y + i *(h + pad), w, h));
+                    towerSpawners.add(new TowerSpawner(screenWidth - 2 * (pad + w), y + i *(h + pad), w, h));
+                    towerSpawners.add(new TowerSpawner(screenWidth - w - pad, y + i *(h + pad), w, h));
+                }
+
+                initUpdate();
+            }
+
+            private void initScore () {
+                score = 0;
+                scoreX = (float)(60 * scale);
+                scoreY = (float)(30 * scale);
+                scorePaint = new Paint();
+                scorePaint.setColor(Color.WHITE);
+                scorePaint.setTextSize(scaledTextSize);
+                scorePaint.setStrokeWidth(scaledStrokeWidth);
+                scorePaint.setTextAlign(Paint.Align.CENTER);
+                scorePaint.setStyle(Paint.Style.FILL);
+
+                initUpdate();
+            }
+
+            private void initCells () {
+                cells = 1000;
+                cellsX = (float)(60 * scale);
+                cellsY = (float)(60 * scale);
+                cellsPaint = new Paint();
+                cellsPaint.setColor(Color.WHITE);
+                cellsPaint.setTextSize(scaledTextSize);
+                cellsPaint.setStrokeWidth(scaledStrokeWidth);
+                cellsPaint.setTextAlign(Paint.Align.CENTER);
+                cellsPaint.setStyle(Paint.Style.FILL);
+
+                initUpdate();
+            }
+
+            private void initStageLevel () {
+                stageLevel = 0;
+                stageLevelX = (float)(60 * scale);
+                stageLevelY = (float)(30 * scale);
+                stageLevelPaint = new Paint();
+                stageLevelPaint.setColor(Color.WHITE);
+                stageLevelPaint.setTextSize(scaledTextSize);
+                stageLevelPaint.setStrokeWidth(scaledStrokeWidth);
+                stageLevelPaint.setTextAlign(Paint.Align.CENTER);
+                stageLevelPaint.setStyle(Paint.Style.FILL);
+            }
+
+            private void initTrix () {
+                trixHP = 100;
+                trixHPX = (float)(60 * scale);
+                trixHPY = (float)(60 * scale);
+                trixHPPaint = new Paint();
+                trixHPPaint.setColor(Color.WHITE);
+                trixHPPaint.setTextSize(scaledTextSize);
+                trixHPPaint.setStrokeWidth(scaledStrokeWidth);
+                trixHPPaint.setTextAlign(Paint.Align.CENTER);
+                trixHPPaint.setStyle(Paint.Style.FILL);
+
+                initUpdate();
+            }
+
+            private void initUpdate () {
+                currInit += 10;
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
 			@Override
 			public void run() {
-				try {
-					for( ; currInit <MAX_INIT; currInit++)
-						Thread.sleep(20);
+		        initIcons();
+		        initEnemySpawners();
+		        initTowerSpawner();
+                initScore();
+                initCells();
+                initStageLevel();
+                initTrix();
+                spawnEnemies();
 
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+                currInit = MAX_INIT - 1;
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+				currInit = MAX_INIT;
 			}
 		}.start();
+
 	}
 
 	@Override
@@ -64,151 +268,223 @@ public class SinglePlayerGamePanel extends SurfaceView implements SurfaceHolder.
 		return currInit == MAX_INIT;
 	}
 
-
-	// from Gavin's code
 	@Override
 	public void surfaceCreated(SurfaceHolder surfaceHolder) {
-		thread = new MainThread(getHolder(), this);
-		thread.setRunning(true);
-		thread.start();
+		gameThread = new GameThread(getHolder(), this);
+
+		gameThread.setRunning (true);
+		gameThread.start();
 	}
 
 	@Override
-	public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height) {
-		tryDrawing(surfaceHolder);
-	}
+	public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {}
 
 	@Override
-	public void surfaceDestroyed(SurfaceHolder holder){
+	public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
 		boolean retry = true;
-
-		while(retry == true)
-		{
-			try{
-				thread.setRunning(false);
-				thread.join();
-				retry = false;
-			}catch(Exception e) {e.printStackTrace();retry = true;}
-			retry = false;
+        gameThread.setRunning (false);
+		while (retry) {
+			try {
+				gameThread.join();
+                retry = false;
+			} catch (Exception e) { e.printStackTrace(); }
 		}
-	}
-
-	/* ------------------------- WARNING -------------------------
-	 * ALL OF THE FOLLOWING CODE
-	 * WERE DERIVED FROM CleanCanvas (Gavin)
-	 * ----------------------------------------------------------- */
-
-	@Override
-	public boolean onTouchEvent(MotionEvent event)
-	{
-		for(WhiteSlot x:spawnPlaces) {
-			if ((x.getX() - 100) <= event.getX() && (x.getX() + 100) >= event.getX()
-					&& (x.getY() - 100) <= event.getY() && (x.getY() + 100) >= event.getY()) {
-				if(!x.isTaken() && currentCells >= 50) {
-					spawnTower(x);
-					currentCells = currentCells - 50;
-				}
-				else if(x.isTaken())
-				{
-					upgradeTower(x);
-				}
-			}
-		}
-		return true;
-		//return super.onTouchEvent(event);
-	}
-
-	public void createSlots()
-	{
-		int iteratorY = Constants.SCREEN_HEIGHT;
-		int iteratorX = Constants.SCREEN_WIDTH;
-		for(int i = 0; i < 8; i++) {
-			spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH / 6 - 100, Constants.SCREEN_HEIGHT / 10 + 200*i));
-			spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH / 4, Constants.SCREEN_HEIGHT / 10 + 200*i));
-
-			spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH - Constants.SCREEN_WIDTH / 4 + 100, Constants.SCREEN_HEIGHT / 10 + 200*i));
-			spawnPlaces.add(new WhiteSlot(Constants.SCREEN_WIDTH - Constants.SCREEN_WIDTH / 4 - 100, Constants.SCREEN_HEIGHT / 10 + 200*i));
-		}
-
-	}
-
-	private void tryDrawing(SurfaceHolder holder) {
-		Log.i("", "Trying to draw...");
-
-		Canvas canvas = holder.lockCanvas();
-		if (canvas == null) {
-			Log.e("", "Cannot draw onto the canvas as it's null");
-		} else {
-			draw(canvas);
-			holder.unlockCanvasAndPost(canvas);
-		}
-	}
-
-	public void spawnBacterium() {
-		bacterias.add(new Bacteria(Constants.SCREEN_WIDTH/2-50, 0,5));
-	}
-
-	public void spawnTower(WhiteSlot x) {
-		x.setColor(Color.rgb(255, 255, 255));
-		x.setLevel(1);
-		x.setAttackPower(50);
-		x.setTaken(true);
-	}
-
-	public void upgradeTower(WhiteSlot x)
-	{
-		if(x.getLevel() == 1 && currentCells >= 100)
-		{
-			currentCells = currentCells - 100;
-			x.setLevel(2);
-			x.setAttackPower(100);
-			x.setColor(Color.rgb(206, 20, 73));
-		}
-		else if(x.getLevel() == 2 && currentCells >= 200)
-		{
-			currentCells = currentCells - 200;
-			x.setLevel(3);
-			x.setAttackPower(150);
-			x.setColor(Color.rgb(48, 48, 48));
-		}
-	}
-
-	public void update()
-	{
-
-	}
-
-	public void moveBacteriaDown(){
-		for(Bacteria b: bacterias){
-			b.moveDown();
-		}
-	}
-
-	public void removeOut()
-	{
-		/*
-		for(Bacteria f:bacterias)
-			if(f.getY() > Constants.SCREEN_HEIGHT)
-				bacterias.remove(f);
-				*/
 	}
 
 	@Override
-	public void draw(Canvas canvas){
+	public boolean onTouchEvent(MotionEvent event) {
+	    if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
-		super.draw(canvas);
-		Paint paint = new Paint();
-		canvas.drawColor(Color.rgb(255, 182, 193));
-		removeOut();
-		for(Bacteria f:bacterias){
-			paint.setColor(f.getColor());
-			Rect r = new Rect(f.getX(), f.getY(), f.getX()+100, f.getY()+100);
-			canvas.drawRect(r, paint);
-		}
-		for(WhiteSlot x:spawnPlaces){
-			paint.setColor(x.getColor());
-			Rect r = new Rect(x.getX(), x.getY(), x.getX()+100, x.getY()+100);
-			canvas.drawRect(r, paint);
-		}
+            float x = event.getX(), y = event.getY();
+
+            synchronized (towers) {
+                if (!towers.isEmpty()) {
+                    for (Tower t : towers) {
+                        if (t.intersects(x, y)) {
+                            t.upgrade();
+                        }
+                    }
+                }
+            }
+
+            synchronized (towerSpawners) {
+                for (TowerSpawner ts : towerSpawners) {
+
+                    if (ts.intersects(x, y)) {
+                        System.out.println("clicked");
+
+                        if (WBC.getCost(1) <= cells) {
+                            Tower t = ts.spawn(WBC.class, 1);
+                            cells -= WBC.getCost(1);
+
+                            if (t != null) {
+                                synchronized (towers) {
+                                    towers.add(t);
+                                    sem.playSFX(SoundEffectsManager.BUILD1);
+                                }
+                            }
+
+                        }
+
+                    }
+
+                }
+            }
+
+        }
+
+		return false;
 	}
+
+	public void spawnEnemies () {
+	    synchronized (enemySpawners) {
+            boolean nextRound = true;
+            for (EnemySpawner enemySpawner : enemySpawners) {
+                if (!enemySpawner.canSpawn()) {
+                    nextRound = false;
+                    break;
+                }
+            }
+
+            if (nextRound) {
+                stageLevel++;
+
+                for (EnemySpawner e : enemySpawners) {
+                    synchronized (enemies) {
+                        enemies.add(e.spawn(Bacteria.class, stageLevel));
+                    }
+                }
+            }
+        }
+    }
+
+	@Override
+	public void update () {
+	    spawnEnemies();
+
+        scoreString = new StringBuilder().append("Score: ").append(score).toString();
+        scoreX = scorePaint.measureText(scoreString)/2 + (float) (10 * scale);
+
+        cellsString = new StringBuilder().append("Cells: ").append(cells).toString();
+        cellsX = cellsPaint.measureText(cellsString)/2 + (float) (10 * scale);
+
+        trixString = new StringBuilder().append("HP: ").append(trixHP).toString();
+        trixHPX = screenWidth - cellsPaint.measureText(trixString)/2 - (float) (10*scale);
+
+        stageString = new StringBuilder().append("Stage: ").append(stageLevel).toString();
+        stageLevelX = screenWidth - cellsPaint.measureText(stageString)/2 - (float) (10*scale);
+
+        synchronized (towers) {
+            if (!towers.isEmpty())
+                for (Tower tower : towers) {
+                    tower.update();
+                    if (tower.canUpgrade(cells)) {
+                        tower.highlightSpawner();
+                    }
+                    else tower.unhighlightSpawner();
+                    synchronized (enemies) {
+                        for (Enemy e: enemies) {
+                            Projectile p = tower.attack(e);
+                            if (p != null) {
+                                projectiles.add(p);
+                                break;
+                            }
+                        }
+                    }
+                }
+        }
+
+        synchronized (enemies) {
+            Iterator<Enemy> iterator = enemies.iterator();
+
+            while (iterator.hasNext()) {
+                Enemy e = iterator.next();
+                e.update();
+                if (!e.isAlive ()) {
+                    sem.playSFX(SoundEffectsManager.BACDEATH);
+                    score += e.score;
+                    cells += e.cells;
+                    e.despawn();
+                    iterator.remove();
+                }
+                else if (e.getY() > screenHeight) {
+                    trixHP -= e.attackDamage;
+                    if (trixHP < 100 && trixHP > 60)
+                        sem.playSFX(SoundEffectsManager.PAIN1);
+                    else if (trixHP <= 60 && trixHP > 30)
+                        sem.playSFX(SoundEffectsManager.PAIN2);
+                    else if (trixHP <= 30 && trixHP > 0)
+                        sem.playSFX(SoundEffectsManager.PAIN3);
+                    else
+                        sem.playSFX(SoundEffectsManager.DEATH);
+                    e.despawn();
+                    iterator.remove();
+                }
+            }
+        }
+
+        synchronized (projectiles) {
+            Iterator<Projectile> iterator = projectiles.iterator();
+
+            while (iterator.hasNext()) {
+                Projectile p = iterator.next();
+                p.update();
+                sem.playSFX(SoundEffectsManager.FIRE);
+
+                if (p.getX() < 0 || p.getX() > screenWidth ||
+                        p.getY() < 0 || p.getY() > screenHeight)
+                    p.despawn();
+
+                if (p.hit()) {
+                    p.attack ();
+                    p.despawn();
+                    iterator.remove();
+                }
+            }
+        }
+
+        if (trixHP <= 0) {
+            gameThread.setRunning(false);
+            Intent intent = new Intent(getContext(), GameOverActivity.class);
+            intent.putExtra("score", score);
+            intent.putExtra("waves", stageLevel);
+            getContext().startActivity(intent);
+            ((Activity)getContext()).finish();
+            bmm.stopMusic();
+        }
+
+	}
+
+	@Override
+	public void draw(Canvas canvas) {
+        super.draw(canvas);
+        canvas.drawBitmap(backgroundIcon, null, bgRect, new Paint());
+
+        canvas.drawText(scoreString, scoreX, scoreY, scorePaint);
+        canvas.drawText(cellsString, cellsX, cellsY, cellsPaint);
+        canvas.drawText(trixString, trixHPX, trixHPY, trixHPPaint);
+        canvas.drawText(stageString, stageLevelX, stageLevelY, stageLevelPaint);
+
+        synchronized (towerSpawners) {
+            for (int i = 0; i < towerSpawners.size(); i++)
+                towerSpawners.get(i).draw(canvas);
+        }
+
+        synchronized (towers) {
+            for (int i = 0; i < towers.size(); i++)
+                towers.get(i).draw(canvas);
+        }
+
+        synchronized (enemies) {
+            for (int i = 0; i < enemies.size(); i++)
+                enemies.get(i).draw(canvas);
+        }
+
+        synchronized (projectiles) {
+            for (int i = 0; i < projectiles.size(); i++)
+                projectiles.get(i).draw(canvas);
+        }
+
+	}
+
 }

@@ -1,7 +1,8 @@
 package edu.dlsu.mobapde.resistancetd;
 
 /**
- * Created by user on 11/15/2017.
+ * ResistanceTD
+ * Created by Jasper Glen A. Pillejera on 2017-12-12/15/2017.
  */
 
 public interface GamePanelInitializer {

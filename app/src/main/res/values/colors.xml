@@ -5,7 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="mainBgStart">#8C00FF</color>
     <color name="mainBgEnd">#3C006D</color>
-    <color name="mainTitleColor">#ce0b4c</color>
+    <!--<color name="mainTitleColor">#ce0b4c</color>-->
+    <color name="mainTitleColor">#ffffff</color>
     <color name="loadingProgressBar">#15b0b6</color>
     <color name="white">#FFF</color>
     <color name="black">#000</color>

@@ -1,13 +1,14 @@
 package edu.dlsu.mobapde.resistancetd;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.DisplayMetrics;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -16,38 +17,55 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-	private TextView tvMainSinglePlayer, tvMainMultiplayer;
+	private TextView tvMainSinglePlayer, tvMainMultiplayer, tvHelp;
 	private SharedPreferences dsp;
+	private BackgroundMusicManager bmm;
 
-    @Override
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_main);
 
-		// set to full screen
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        try {
+			int n = getIntent().getExtras().getInt("retry", -1);
 
-		// shared preferences
+			if (n == 0)
+				startGame(n);
+		} catch (Exception e) {}
+
 		dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		checkOpeningViewed();
-
-		// from Gavin's code
-		DisplayMetrics dm = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(dm);
-		Constants.SCREEN_WIDTH = dm.widthPixels;
-		Constants.SCREEN_HEIGHT = dm.heightPixels;
-
-		// remove title
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_main);
-
-		// initialize elements and add listeners
 		initAttributes();
+
+		// Background music
+		bmm = new BackgroundMusicManager(getBaseContext());
+		bmm.playMusic(BackgroundMusicManager.MAIN_MENU);
     }
+
+    @Override
+	protected void onPause() {
+    	super.onPause();
+    	bmm.pauseMusic(); //pause player
+	}
+
+	@Override
+	protected void onResume() {
+    	super.onResume();
+    	bmm.resumeMusic();
+	}
+
+	@Override
+	protected void onStop() {
+    	super.onStop();
+    	bmm.stopMusic();
+	}
 
     private void initAttributes () {
 		tvMainSinglePlayer = findViewById(R.id.tvMainSinglePlayer);
 		tvMainMultiplayer = findViewById(R.id.tvMainMultiplayer);
+		tvHelp = findViewById(R.id.tvHelp);
 
 		tvMainSinglePlayer.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -55,17 +73,29 @@ public class MainActivity extends Activity {
 				startGame(0);
 			}
 		});
+
 		tvMainMultiplayer.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				startGame(1);
+				Intent i = new Intent (getBaseContext(), ScoresActivity.class);
+				startActivity(i);
+			}
+		});
+
+		tvHelp.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getBaseContext(), HelpActivity.class);
+				startActivity(i);
 			}
 		});
 	}
 
-	private void startGame (int gameMode) {
+	public void startGame (int gameMode) {
 		switch (gameMode) {
 			case 0:
+				bmm.stopMusic();
 				new GameLoader().execute(new SinglePlayerGamePanel(this));
 				break;
 			case 1:
@@ -80,19 +110,18 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	private class GameLoader extends AsyncTask <SurfaceView, Integer, SurfaceView> {
+	private class GameLoader extends AsyncTask <GamePanel, Integer, GamePanel> {
 
-		ProgressBar progressBar;
+        private ProgressBar progressBar;
 
 		@Override
-		protected SurfaceView doInBackground(SurfaceView... surfaceViews) {
-			SurfaceView gameView = surfaceViews[0];
+		protected GamePanel doInBackground(GamePanel... gamePanels) {
+			GamePanel gamePanel = gamePanels[0];
 
-			GamePanelInitializer gpi = (GamePanelInitializer) gameView;
-			gpi.initialize();
+			gamePanel.initialize();
 
-			while (!(gpi.isInitialized())) {
-				publishProgress(gpi.status());
+			while (!(gamePanel.isInitialized())) {
+				publishProgress(gamePanel.status());
 				try {
 					Thread.sleep(1000/60);
 				} catch (InterruptedException e) {
@@ -100,24 +129,30 @@ public class MainActivity extends Activity {
 				}
 			}
 
-			return gameView;
+			publishProgress(gamePanel.status());
+
+			return gamePanel;
 		}
 
 		@Override
 		protected void onPreExecute() {
-			setContentView(R.layout.activity_loading_screen);
-			progressBar = findViewById(R.id.pbLoadingProgress);
-			progressBar.setProgress(0);
+            setContentView(R.layout.activity_loading_screen);
+            progressBar = findViewById(R.id.pbLoadingProgress);
+            progressBar.setProgress(0);
 		}
 
 		@Override
 		protected void onProgressUpdate(Integer... values) {
-			progressBar.setProgress(values[0]);
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+				progressBar.setProgress(values[0], true);
+			} else {
+				progressBar.setProgress(values[0]);
+			}
 		}
 
 		@Override
-		protected void onPostExecute(SurfaceView surfaceView) {
-			setContentView(surfaceView);
+		protected void onPostExecute(GamePanel gamePanels) {
+			setContentView(gamePanels);
 		}
 
 	}

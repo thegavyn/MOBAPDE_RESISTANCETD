@@ -366,10 +366,12 @@ public class SinglePlayerGamePanel extends GamePanel {
 
     public void pause () {
 	    gameThread.pause();
+	    bmm.pauseMusic();
     }
 
     public void resume () {
 	    gameThread.unpause();
+	    bmm.resumeMusic();
     }
 
     public void spawnEnemies () {

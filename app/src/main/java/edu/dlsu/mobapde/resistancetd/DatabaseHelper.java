@@ -16,7 +16,6 @@ import java.util.Random;
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String SCHEMA = "resistance_td";
     public static final int VERSION = 1;
-    public static final String TABLE_MESSAGE = "loading_messages";
 
     public DatabaseHelper(Context context) {
         super(context, SCHEMA, null, VERSION);
@@ -49,14 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + Gameplay.COLUMN_WAVES + " INTEGER "
                 + ");";
 
-       /* String createLoadingMessages = "CREATE TABLE " + TABLE_MESSAGE + " ("
-                + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "message TEXT"
-                + ");";*/
-
         db.execSQL(createGameplayRecord);
-        //db.execSQL(createLoadingMessages);
-       // initializeMessages();
 
     }
 
@@ -68,72 +60,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         onCreate(db);
     }
-
-    /**
-     * Adds loading messages to the DB.
-     *
-     * @return whether initialization is successful or not
-     */
-//    public boolean initializeMessages() {
-//        SQLiteDatabase db = getWritableDatabase();
-//        ContentValues cv;
-//        Long id;
-//
-//        String[] messages = {
-//                "Trivia #1",
-//                "Trivia #2",
-//                "Trivia #3",
-//                "Trivia #4",
-//                "Trivia #5"
-//        };
-//
-//        for (String s : messages) {
-//            cv = new ContentValues();
-//            cv.put("message", s);
-//            id = db.insert(TABLE_MESSAGE,
-//                    null,
-//                    cv);
-//            if (id == -1)
-//                return false;
-//        }
-//
-//        db.close();
-//        return true;
-//    }
-
-    /**
-     * Returns a random message from the DB
-     *
-     * @return message
-     */
-//    public String getRandomMessage() {
-//        Random rand = new Random();
-//        // TODO do not make this constant 5. Make a way na kukuhanin ilan yung current messages
-//        int n = rand.nextInt(5) + 1;
-//        // 5 is the maximum and the 1 is our minimum
-//
-//        String message = "";
-//
-//        SQLiteDatabase db = getReadableDatabase();
-//        Cursor c = db.query(TABLE_MESSAGE,
-//                null,
-//                "_id = ? ",
-//                new String[]{
-//                        n + ""
-//                },
-//                null,
-//                null,
-//                null);
-//
-//        if (c.moveToFirst()) {
-//            message = c.getString(c.getColumnIndex("message"));
-//        }
-//
-//        c.close();
-//        db.close();
-//
-//        return message;
-//    }
 
     /**
      * Adds gameplay to the db

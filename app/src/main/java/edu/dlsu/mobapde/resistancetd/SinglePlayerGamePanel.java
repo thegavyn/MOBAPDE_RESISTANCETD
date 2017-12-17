@@ -87,8 +87,13 @@ public class SinglePlayerGamePanel extends GamePanel {
     private BackgroundMusicManager bmm;
     private SoundEffectsManager sem;
 
+    // main activity
+    private MainActivity mainActivity;
+
 	public SinglePlayerGamePanel(Context context) {
 		super(context);
+
+		mainActivity = (MainActivity)context;
 
 		DisplayMetrics dm = getResources().getDisplayMetrics();
 		scale = dm.density;
@@ -107,6 +112,7 @@ public class SinglePlayerGamePanel extends GamePanel {
         projectiles = new ArrayList<>();
 
         WBC.setScale(scale);
+        WBC.setBaseRange((screenWidth/2));
         Bacteria.setScale(scale);
 
         // Background Music
@@ -476,11 +482,12 @@ public class SinglePlayerGamePanel extends GamePanel {
         if (trixHP <= 0) {
             bmm.stopMusic();
             gameThread.setRunning(false);
-            Intent intent = new Intent(getContext(), GameOverActivity.class);
+            Intent intent = new Intent(mainActivity.getBaseContext(), GameOverActivity.class);
             intent.putExtra("score", score);
             intent.putExtra("waves", stageLevel);
-            getContext().startActivity(intent);
-            ((Activity)getContext()).finish();
+            mainActivity.startActivity(intent);
+            mainActivity.finish();
+            bmm.stopMusic();
         }
 
 	}

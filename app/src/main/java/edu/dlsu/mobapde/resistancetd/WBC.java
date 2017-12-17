@@ -18,14 +18,14 @@ public class WBC {
 
     private static final int baseCost = 100;
     private static final int baseDamage = 5;
-    private static final int baseSpeed = 15;
-    private static final int baseRange = 200;
+    private static final int baseSpeed = 20;
+    private static int baseRange;
     private static final int baseCooldown = 40;
 
     private static final int scaleCost = 4;
     private static final int scaleDamage = 4;
-    private static final int scaleSpeed = 10;
-    private static final int scaleRange = 25;
+    private static final int scaleSpeed = 7;
+    private static int scaleRange;
     private static final int scaleCooldown = 4;
 
     public static Bitmap getIcon(int level, boolean left) {
@@ -51,11 +51,20 @@ public class WBC {
     }
 
     public static int getSpeed (int level) {
-        return (int)((baseSpeed + scaleSpeed * (level - 1)) * scale);
+        double speed = baseSpeed;
+        int sc = scaleSpeed * (level - 1);
+        speed += sc;
+        speed *= scale;
+
+        return (int)speed;
     }
 
     public static int getRange (int level) {
-        return (int) ((baseRange + scaleRange * (level - 1)) * scale);
+        double range = baseRange;
+        int sc = scaleRange * (level - 1);
+        range += sc;
+
+        return (int)range;
     }
 
     public static int getCooldown (int level) {
@@ -64,6 +73,11 @@ public class WBC {
 
     public static void setScale(double scale) {
         WBC.scale = scale;
+    }
+
+    public static void setBaseRange (int range) {
+        WBC.baseRange = range;
+        WBC.scaleRange = range/4;
     }
 
 }

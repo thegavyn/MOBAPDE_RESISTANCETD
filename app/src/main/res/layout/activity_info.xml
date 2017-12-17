@@ -7,95 +7,107 @@
     tools:context="edu.dlsu.mobapde.resistancetd.InfoActivity">
 
     <include
-        layout="@layout/icon_logo_layout"
-        android:id="@+id/includeIconLogoLayout"/>
+        android:id="@+id/includeIconLogoLayout"
+        layout="@layout/icon_logo_layout" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="40sp"
-        android:background="#60000000"
-        android:padding="20sp"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:background="#60000000">
 
-        <ImageView
-            android:layout_height="120sp"
-            android:layout_width="match_parent"
-            android:src="@drawable/logo"
-            android:scaleType="centerInside"
-            android:padding="20dp"/>
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Resistance TD is the result of the blood, sweat, and tears of Jasper Pillejera, Gavin Sanchez, and Jolene Valenzuela. This game was created by De La Salle University - Manila students under Ms. Courtney Ngo for their MOBAPDE project."
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_marginBottom="10dp"/>
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="70sp"
+            android:paddingLeft="20sp"
+            android:paddingRight="20sp"
+            android:paddingTop="20sp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="520dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="We would also like to thank our parents for giving birth to us."
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_marginBottom="20sp"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="120sp"
+                android:padding="20dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/logo" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Acknowledgements"
-            android:textSize="22sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_marginBottom="10sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Resistance TD is the result of the blood, sweat, and tears of Jasper Pillejera, Gavin Sanchez, and Jolene Valenzuela, De La Salle University - Manila students under Ms. Courtney Ngo for their MOBAPDE project."
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="3 pound universe by Jeris (c) Copyright 2013 Licensed under a Creative Commons Attribution (3.0) license. http://dig.ccmixter.org/files/VJ_Memes/41544 ft. Doxent Zsigmond (doxent)"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_marginBottom="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                android:text="We would also like to thank our parents for giving birth to us."
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Reusenoise (DNB Mix) by spinningmerkaba (c) Copyright 2017 Licensed under a Creative Commons Attribution (3.0) license. http://dig.ccmixter.org/files/jlbrock44/56531"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_marginBottom="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10sp"
+                android:text="Acknowledgements"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Jolene Valenzuela, who is responsible for all of the in-game art."
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_marginBottom="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                android:text="3 pound universe by Jeris (c) Copyright 2013 Licensed under a Creative Commons Attribution (3.0) license. http://dig.ccmixter.org/files/VJ_Memes/41544 ft. Doxent Zsigmond (doxent)"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
-        <TextView
-            android:layout_width="350sp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/red_button"
-            android:gravity="center"
-            android:shadowColor="#000000"
-            android:shadowDx="-2"
-            android:shadowDy="-2"
-            android:shadowRadius="1"
-            android:text="BACK TO MAIN MENU"
-            android:textSize="30sp"
-            android:textColor="@color/white"
-            android:layout_margin="5sp"
-            android:id="@+id/tv_back"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                android:text="Reusenoise (DNB Mix) by spinningmerkaba (c) Copyright 2017 Licensed under a Creative Commons Attribution (3.0) license. http://dig.ccmixter.org/files/jlbrock44/56531"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                android:text="Jolene Valenzuela, who is responsible for all of the in-game art."
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20sp"
+        android:background="@drawable/red_button"
+        android:gravity="center"
+        android:shadowColor="#000000"
+        android:shadowDx="-2"
+        android:shadowDy="-2"
+        android:shadowRadius="1"
+        android:text="BACK TO MAIN MENU"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

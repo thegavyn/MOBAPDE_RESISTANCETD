@@ -26,6 +26,7 @@ public class SoundEffectsManager {
         // firing
         FIRE = 8;
 
+    private static int counter = 0;
 
     SoundEffectsManager(Context context) {
         SoundPool.Builder builder = new SoundPool.Builder().setMaxStreams(10);
@@ -52,11 +53,26 @@ public class SoundEffectsManager {
                 break;
             case BUILD3: pool.play(sBuild3, 1.0f, 1.0f, 0, 0, 1.5f);
                 break;
-            case PAIN1: pool.play(sPain1, 1.0f, 1.0f, 0, 0, 1.5f);
+            case PAIN1:
+                if (counter == 5) {
+                    pool.play(sPain1, 1.0f, 1.0f, 0, 0, 1.5f);
+                    counter = 0;
+                } else
+                    counter++;
                 break;
-            case PAIN2: pool.play(sPain2, 1.0f, 1.0f, 0, 0, 1.5f);
+            case PAIN2:
+                if (counter == 5) {
+                    pool.play(sPain2, 1.0f, 1.0f, 0, 0, 1.5f);
+                    counter = 0;
+                } else
+                    counter++;
                 break;
-            case PAIN3: pool.play(sPain3, 1.0f, 1.0f, 0, 0, 1.5f);
+            case PAIN3:
+                if (counter == 5) {
+                    pool.play(sPain3, 1.0f, 1.0f, 0, 0, 1.5f);
+                    counter = 0;
+                } else
+                    counter++;
                 break;
             case DEATH: pool.play(sDeath, 1.0f, 1.0f, 0, 0, 1.5f);
                 break;

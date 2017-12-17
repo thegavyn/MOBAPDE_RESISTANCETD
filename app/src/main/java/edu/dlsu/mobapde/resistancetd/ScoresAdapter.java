@@ -16,14 +16,12 @@ import android.widget.TextView;
 public class ScoresAdapter extends CursorRecyclerViewAdapter  {
 
     public class ScoresViewHolder extends RecyclerView.ViewHolder {
-        TextView tvId;
         TextView tvScore;
         TextView tvWaves;
 
         public ScoresViewHolder (View itemView) {
             super (itemView);
 
-            tvId = itemView.findViewById(R.id.tvID);
             tvScore = itemView.findViewById(R.id.tvScore);
             tvWaves = itemView.findViewById(R.id.tvWaves);
         }
@@ -39,10 +37,8 @@ public class ScoresAdapter extends CursorRecyclerViewAdapter  {
     }
 
     public void onBindViewHolder(ScoresViewHolder viewHolder, Cursor cursor) {
-        long id = cursor.getLong(cursor.getColumnIndex(Gameplay.COLUMN_ID));
         int score = cursor.getInt(cursor.getColumnIndex(Gameplay.COLUMN_SCORE));
         int waves = cursor.getInt(cursor.getColumnIndex(Gameplay.COLUMN_WAVES));
-        viewHolder.tvId.setText(id + "");
         viewHolder.tvScore.setText(score + "");
         viewHolder.tvWaves.setText(waves + "");
     }

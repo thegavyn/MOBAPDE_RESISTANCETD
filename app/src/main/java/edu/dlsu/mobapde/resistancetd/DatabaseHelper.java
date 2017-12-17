@@ -116,7 +116,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null,
                 null,
                 null,
-                Gameplay.COLUMN_SCORE + " , " + Gameplay.COLUMN_WAVES + " DESC");
+                Gameplay.COLUMN_SCORE + " DESC, " + Gameplay.COLUMN_WAVES + " DESC");
 
         ArrayList<Gameplay> gameplays = new ArrayList<>();
 
@@ -151,6 +151,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null,
                 null,
                 null,
-                Gameplay.COLUMN_SCORE + " , " + Gameplay.COLUMN_WAVES + " DESC");
+                Gameplay.COLUMN_SCORE + " DESC, " + Gameplay.COLUMN_WAVES + " DESC");
     }
 }

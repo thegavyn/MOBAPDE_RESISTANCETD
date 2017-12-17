@@ -15,19 +15,19 @@ public class Bacteria {
     public static double scale;
     private static ArrayList<Bitmap> icon = new ArrayList<>();
 
-    private static final int baseMoveSpeed = 2;
+    private static final int baseMoveSpeed = 1;
     private static final int baseAttackDamage = 1;
     private static final int baseHealth = 50;
-    private static final int baseCells = 5;
-    private static final int baseScore = 8;
+    private static final int baseCells = 8;
+    private static final int baseScore = 5;
 
     private static final double scaleMoveSpeed = 1;
     private static final double scaleAttackDamage = 1;
     private static final double scaleHealth = 4;
-    private static final int scaleCells = 1;
-    private static final int scaleScore = 2;
+    private static final int scaleCells = 2;
+    private static final int scaleScore = 4;
 
-    private static final int maxMoveSpeed = 30;
+    private static final int maxMoveSpeed = 5;
     private static final int maxAttackDamage = 100;
     private static final int maxHealth = 50000;
 
@@ -49,10 +49,12 @@ public class Bacteria {
     }
 
     public static int getMoveSpeed (int level) {
-        int speed = (int)(((level - 1) * scaleMoveSpeed + baseMoveSpeed) * scale);
+        int speed = (int) ((level - 1) * scaleMoveSpeed + baseMoveSpeed);
 
         if (speed > maxMoveSpeed)
-            return maxMoveSpeed;
+            speed = maxMoveSpeed;
+
+        speed = (int) (speed * scale);
 
         return speed;
     }

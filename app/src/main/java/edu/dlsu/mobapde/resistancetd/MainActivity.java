@@ -15,6 +15,7 @@ public class MainActivity extends Activity {
 
 	private TextView tvMainSinglePlayer, tvMainScore, tvHelp;
 	private BackgroundMusicManager bmm;
+	private SinglePlayerGamePanel singlePlayerGamePanel;
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +41,21 @@ public class MainActivity extends Activity {
     @Override
 	protected void onPause() {
     	super.onPause();
+    	if (singlePlayerGamePanel != null)
+    	    singlePlayerGamePanel.pause ();
     	bmm.pauseMusic(); //pause player
 	}
 
 	@Override
 	protected void onResume() {
     	super.onResume();
+    	if (singlePlayerGamePanel != null) {
+            singlePlayerGamePanel.resume();
+        }
     	bmm.resumeMusic();
 	}
 
-	@Override
+    @Override
 	protected void onStop() {
     	super.onStop();
     	bmm.stopMusic();
@@ -91,7 +97,8 @@ public class MainActivity extends Activity {
 		switch (gameMode) {
 			case 0:
 				bmm.stopMusic();
-				new GameLoader().execute(new SinglePlayerGamePanel(this));
+				singlePlayerGamePanel = new SinglePlayerGamePanel(this);
+				new GameLoader().execute(singlePlayerGamePanel);
 				break;
 			case 1:
 		}

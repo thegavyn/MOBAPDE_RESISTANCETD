@@ -28,6 +28,7 @@ public class HelpActivity extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), MainActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 

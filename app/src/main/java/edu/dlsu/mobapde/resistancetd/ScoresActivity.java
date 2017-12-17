@@ -40,6 +40,7 @@ public class ScoresActivity extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), MainActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -49,8 +50,21 @@ public class ScoresActivity extends Activity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        bmm.pauseMusic();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        bmm.stopMusic();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         scoresAdapter.changeCursor(databaseHelper.getAllGameplayRecordsCursor());
+        bmm.resumeMusic();
     }
 }

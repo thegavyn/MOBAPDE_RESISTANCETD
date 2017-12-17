@@ -18,7 +18,7 @@ public class InfoActivity extends Activity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_help);
+        setContentView(R.layout.activity_info);
 
         tvBack = findViewById(R.id.tv_back);
 

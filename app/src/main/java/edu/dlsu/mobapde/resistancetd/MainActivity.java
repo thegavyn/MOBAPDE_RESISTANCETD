@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-	private TextView tvMainSinglePlayer, tvMainScore, tvHelp;
+	private TextView tvMainSinglePlayer, tvMainScore, tvHelp, tvInfo;
 	private BackgroundMusicManager bmm;
 	private SinglePlayerGamePanel singlePlayerGamePanel;
 
@@ -65,6 +65,7 @@ public class MainActivity extends Activity {
 		tvMainSinglePlayer = findViewById(R.id.tvMainSinglePlayer);
 		tvMainScore = findViewById(R.id.tvMainScore);
 		tvHelp = findViewById(R.id.tvHelp);
+		tvInfo = findViewById(R.id.tvInfo);
 
 		tvMainSinglePlayer.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -87,6 +88,16 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(getBaseContext(), HelpActivity.class);
+				startActivity(i);
+				finish();
+			}
+		});
+
+		tvInfo.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getBaseContext(), InfoActivity.class);
 				startActivity(i);
 				finish();
 			}

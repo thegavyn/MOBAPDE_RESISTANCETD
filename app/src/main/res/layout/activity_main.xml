@@ -38,7 +38,9 @@
 			android:layout_width="match_parent"
 			android:src="@drawable/logo"
 			android:scaleType="centerInside"
-			android:padding="50dp"
+			android:paddingLeft="50sp"
+			android:paddingRight="50sp"
+			android:paddingBottom="50sp"
 			android:layout_weight="6"/>
 
 		<LinearLayout

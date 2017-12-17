@@ -1,79 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context="edu.dlsu.mobapde.resistancetd.MainActivity">
+	tools:context="edu.dlsu.mobapde.resistancetd.MainActivity"
+	android:background="@drawable/main_activity_background"
+	android:id="@+id/base">
 
-	<include
-		layout="@layout/icon_logo_layout"
-		android:id="@+id/includeMainIconLogoLayout"/>
+	<ImageView
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:src="@drawable/main_menu"
+		android:scaleType="fitEnd"/>
 
-	<TextView
-		android:id="@+id/tvMainSinglePlayer"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/single_player"
-		android:textSize="35sp"
-		android:textStyle="bold"
-		android:textColor="@color/white"
-		android:shadowColor="#000000"
-		android:shadowDx="-2"
-		android:shadowDy="-2"
-		android:shadowRadius="1"
-		android:gravity="center"
-		android:layout_marginLeft="8dp"
-		android:layout_marginRight="8dp"
-		android:layout_marginTop="350dp"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
-		app:layout_constraintTop_toTopOf="@+id/includeMainIconLogoLayout"
-		/>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:gravity="center">
 
-	<TextView
-		android:id="@+id/tvMainMultiplayer"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/multiplayer"
-		android:textSize="35sp"
-		android:textStyle="bold"
-		android:textColor="@color/white"
-		android:shadowColor="#000000"
-		android:shadowDx="-2"
-		android:shadowDy="-2"
-		android:shadowRadius="1"
-		android:gravity="center"
-		android:layout_marginLeft="8dp"
-		android:layout_marginRight="8dp"
-		android:layout_marginTop="40dp"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/tvMainSinglePlayer"
-		/>
+		<ImageView
+			android:layout_height="0dp"
+			android:layout_width="match_parent"
+			android:src="@drawable/logo"
+			android:scaleType="centerInside"
+			android:padding="50dp"
+			android:layout_weight="1"/>
 
-	<TextView
-		android:id="@+id/tvHelp"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/help"
-		android:textSize="35sp"
-		android:textStyle="bold"
-		android:textColor="@color/white"
-		android:shadowColor="#000000"
-		android:shadowDx="-2"
-		android:shadowDy="-2"
-		android:shadowRadius="1"
-		android:gravity="center"
-		android:layout_marginLeft="8dp"
-		android:layout_marginRight="8dp"
-		android:layout_marginTop="40dp"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/tvMainMultiplayer"
-		/>
+		<LinearLayout
+			android:layout_height="0dp"
+			android:layout_width="match_parent"
+			android:layout_weight="1"
+			android:orientation="vertical"
+			android:gravity="center">
 
-	
+			<TextView
+				android:id="@+id/tvMainSinglePlayer"
+				android:layout_width="230sp"
+				android:layout_height="wrap_content"
+				android:background="@drawable/custom_button"
+				android:gravity="center"
+				android:shadowColor="#000000"
+				android:shadowDx="-2"
+				android:shadowDy="-2"
+				android:shadowRadius="1"
+				android:text="@string/single_player"
+				android:textStyle="bold"
+				android:textColor="@color/white"
+				android:textSize="60sp"
+				android:layout_margin="10sp"/>
 
-</android.support.constraint.ConstraintLayout>
+			<TextView
+				android:id="@+id/tvMainMultiplayer"
+				android:layout_width="230sp"
+				android:layout_height="wrap_content"
+				android:background="@drawable/custom_button"
+				android:gravity="center"
+				android:shadowColor="#000000"
+				android:shadowDx="-2"
+				android:shadowDy="-2"
+				android:shadowRadius="1"
+				android:text="@string/multiplayer"
+				android:textSize="30sp"
+				android:textColor="@color/white"
+				android:layout_margin="10sp"/>
+
+			<TextView
+				android:id="@+id/tvHelp"
+				android:layout_width="230sp"
+				android:layout_height="wrap_content"
+				android:background="@drawable/custom_button"
+				android:gravity="center"
+				android:shadowColor="#000000"
+				android:shadowDx="-2"
+				android:shadowDy="-2"
+				android:shadowRadius="1"
+				android:text="@string/help"
+				android:textSize="30sp"
+				android:textColor="@color/white"
+				android:layout_margin="10sp"/>
+		</LinearLayout>
+
+	</LinearLayout>
+
+</RelativeLayout>

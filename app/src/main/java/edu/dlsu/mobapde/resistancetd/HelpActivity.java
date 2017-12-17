@@ -1,12 +1,12 @@
 package edu.dlsu.mobapde.resistancetd;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class HelpActivity extends AppCompatActivity {
+public class HelpActivity extends Activity {
 
     TextView tvBack;
     private BackgroundMusicManager bmm;
@@ -17,6 +17,7 @@ public class HelpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_help);
 
         tvBack = findViewById(R.id.tv_back);
+        tvBack = (TextView) findViewById(R.id.tv_back);
 
         tvBack.setOnClickListener(new View.OnClickListener() {
             @Override

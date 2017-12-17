@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.view.Window;
+import android.view.WindowManager;
 
 public class ScoresActivity extends Activity {
 
@@ -20,6 +22,8 @@ public class ScoresActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_scores);
 
         rvScores = findViewById(R.id.rvScores);
@@ -43,7 +47,6 @@ public class ScoresActivity extends Activity {
         bmm = new BackgroundMusicManager(getBaseContext());
         bmm.playMusic(BackgroundMusicManager.MAIN_MENU);
     }
-
 
     @Override
     protected void onResume() {

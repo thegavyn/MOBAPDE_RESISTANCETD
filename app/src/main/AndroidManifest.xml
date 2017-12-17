@@ -17,10 +17,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TrixVideoActivity"
-            android:screenOrientation="sensorLandscape">
-        </activity>
-        <activity
             android:name=".HelpActivity"
             android:screenOrientation="sensorPortrait">
         </activity>

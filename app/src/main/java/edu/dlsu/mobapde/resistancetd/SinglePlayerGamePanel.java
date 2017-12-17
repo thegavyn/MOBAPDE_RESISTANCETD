@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
@@ -134,11 +135,29 @@ public class SinglePlayerGamePanel extends GamePanel {
                 whiteBloodCellIcon2 = BitmapFactory.decodeResource(getResources(), R.drawable.wbc_lvl3);
                 backgroundIcon = BitmapFactory.decodeResource(getResources(), R.drawable.bloodvessel_bg);
 
+                Matrix matrix = new Matrix();
+                matrix.preScale(-1.0f, 1.0f);
+
                 Bacteria.setIcon(bacteriaIcon);
                 Bacteria.setIcon(bacteriaIcon1);
-                WBC.setIcon(whiteBloodCellIcon);
-                WBC.setIcon(whiteBloodCellIcon1);
-                WBC.setIcon(whiteBloodCellIcon2);
+                WBC.setIcon(whiteBloodCellIcon, true);
+                WBC.setIcon(whiteBloodCellIcon1, true);
+                WBC.setIcon(whiteBloodCellIcon2, true);
+                WBC.setIcon(
+                        Bitmap.createBitmap(
+                                whiteBloodCellIcon, 0, 0,
+                                whiteBloodCellIcon.getWidth(), whiteBloodCellIcon.getHeight(),
+                                matrix, true), false);
+                WBC.setIcon(
+                        Bitmap.createBitmap(
+                                whiteBloodCellIcon1, 0, 0,
+                                whiteBloodCellIcon1.getWidth(), whiteBloodCellIcon1.getHeight(),
+                                matrix, true), false);
+                WBC.setIcon(
+                        Bitmap.createBitmap(
+                                whiteBloodCellIcon2, 0, 0,
+                                whiteBloodCellIcon2.getWidth(), whiteBloodCellIcon2.getHeight(),
+                                matrix, true), false);
 
                 initUpdate();
             }
@@ -163,10 +182,10 @@ public class SinglePlayerGamePanel extends GamePanel {
                 int y = (screenHeight - pad * 8 - h * 8) / 2;
 
 		        for (int i = 0; i < 8; i++) {
-                    towerSpawners.add(new TowerSpawner(pad,y + i *(h + pad), w, h));
-                    towerSpawners.add(new TowerSpawner(w + 2 * pad, y + i *(h + pad), w, h));
-                    towerSpawners.add(new TowerSpawner(screenWidth - 2 * (pad + w), y + i *(h + pad), w, h));
-                    towerSpawners.add(new TowerSpawner(screenWidth - w - pad, y + i *(h + pad), w, h));
+                    towerSpawners.add(new TowerSpawner(pad,y + i *(h + pad), w, h, true));
+                    towerSpawners.add(new TowerSpawner(w + 2 * pad, y + i *(h + pad), w, h, true));
+                    towerSpawners.add(new TowerSpawner(screenWidth - 2 * (pad + w), y + i *(h + pad), w, h, false));
+                    towerSpawners.add(new TowerSpawner(screenWidth - w - pad, y + i *(h + pad), w, h, false));
                 }
 
                 initUpdate();

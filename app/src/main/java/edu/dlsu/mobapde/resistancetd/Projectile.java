@@ -24,7 +24,6 @@ public class Projectile extends GameEntity {
         super(x, y, width, height, spawner);
         r = (width + height)/16;
         paint.setColor(Color.parseColor("#FF0000FF"));
-
     }
 
     public boolean hit () {
@@ -46,6 +45,12 @@ public class Projectile extends GameEntity {
             spawned = true;
             speed = WBC.getSpeed(level);
             damage = WBC.getDamage(level);
+            if (level == 1)
+                paint.setColor(Color.parseColor("#AAAAAA"));
+            else if (level == 2)
+                paint.setColor(Color.parseColor("#e8d458"));
+            else if (level == 3)
+                paint.setColor(Color.parseColor("#F7525C"));
         }
     }
 

@@ -5,7 +5,7 @@
     <string name="help">HELP</string>
     <string name="loading">LOADING...</string>
     <string name="failed_message">You failed to help Trix :(</string>
-    <string name="game_over">Game Over!</string>
-    <string name="retry">Retry</string>
-    <string name="quit">Quit</string>
+    <string name="game_over">GAME OVER</string>
+    <string name="retry">RETRY</string>
+    <string name="quit">QUIT</string>
 </resources>

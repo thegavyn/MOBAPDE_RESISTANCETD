@@ -15,7 +15,7 @@ public class Bacteria {
     public static double scale;
     private static ArrayList<Bitmap> icon = new ArrayList<>();
 
-    private static final int baseMoveSpeed = 1;
+    private static final int baseMoveSpeed = 2;
     private static final int baseAttackDamage = 1;
     private static final int baseHealth = 50;
     private static final int baseCells = 8;

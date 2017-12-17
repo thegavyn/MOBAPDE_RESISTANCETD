@@ -17,16 +17,16 @@ public class WBC {
     private static ArrayList<Bitmap> rightIcon = new ArrayList<>();
 
     private static final int baseCost = 100;
-    private static final int baseDamage = 10;
+    private static final int baseDamage = 8;
     private static final int baseSpeed = 8;
     private static int baseRange;
     private static final int baseCooldown = 20;
 
     private static final int scaleCost = 4;
-    private static final int scaleDamage = 4;
+    private static final int scaleDamage = 6;
     private static final int scaleSpeed = 2;
     private static int scaleRange;
-    private static final int scaleCooldown = 5;
+    private static final int scaleCooldown = 2;
 
     public static Bitmap getIcon(int level, boolean left) {
         if (left)

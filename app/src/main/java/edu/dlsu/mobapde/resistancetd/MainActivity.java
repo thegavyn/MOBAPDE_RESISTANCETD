@@ -82,6 +82,7 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 Intent i = new Intent(getBaseContext(), ScoresActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -91,6 +92,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), HelpActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -100,6 +102,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), InfoActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 

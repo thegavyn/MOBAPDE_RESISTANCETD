@@ -5,7 +5,7 @@ package edu.dlsu.mobapde.resistancetd;
  */
 
 public class Gameplay {
-    public static final String TABLE_NAME = "gameplay_record";
+    public static final String TABLE_NAME = "Records";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_SCORE = "score";
     public static final String COLUMN_WAVES = "waves";

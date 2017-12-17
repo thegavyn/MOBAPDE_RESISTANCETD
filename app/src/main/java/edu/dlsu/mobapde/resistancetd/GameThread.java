@@ -39,11 +39,6 @@ public class GameThread extends Thread {
         paused = false;
     }
 
-    private void updateAndDraw () {
-        gamePanel.update ();
-        gamePanel.draw (canvas);
-    }
-
     public void run () {
         long timeBegin, timeDiff;
         int timeSleep, frameLoss;
@@ -60,7 +55,10 @@ public class GameThread extends Thread {
                     timeBegin = System.nanoTime()/NANOS_PER_MILLIS;
                     frameLoss = 0;
 
-                    updateAndDraw();
+                    gamePanel.update ();
+                    if (!running)
+                        break;
+                    gamePanel.draw (canvas);
 
                     timeDiff = System.nanoTime()/NANOS_PER_MILLIS - timeBegin;
                     timeSleep = (int)(FRAME_PERIOD - timeDiff);
@@ -71,7 +69,7 @@ public class GameThread extends Thread {
                         } catch (InterruptedException e) {}
                     }
 
-                    while (timeSleep < 0 && frameLoss < MAX_LOSS) {
+                    while (running && timeSleep < 0 && frameLoss < MAX_LOSS) {
                         gamePanel.update ();
                         timeSleep += FRAME_PERIOD;
                         frameLoss++;

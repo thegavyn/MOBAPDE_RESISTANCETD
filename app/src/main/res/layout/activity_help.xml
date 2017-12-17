@@ -6,93 +6,96 @@
     android:layout_height="match_parent"
     tools:context="edu.dlsu.mobapde.resistancetd.HelpActivity">
 
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/gtvBacteria"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bacteria"
-        android:scaleType="centerCrop"/>
+    <include
+        layout="@layout/icon_logo_layout"
+        android:id="@+id/includeIconLogoLayout"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
+        android:layout_margin="40sp"
         android:background="#60000000"
-        android:padding="20dp"
+        android:padding="20sp"
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="How to Play"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:textSize="30dp"
-            android:layout_marginBottom="10dp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="50sp"
+            android:src="@drawable/how_to_play"
+            android:layout_margin="10sp"
+            android:scaleType="fitCenter"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="When young Trix trips and lands over a large shard of glass, his body is attacked by bacteria that have been lying dormant on the shard."
-            android:textSize="12dp"
+            android:textSize="20sp"
             android:textColor="@color/white"
             android:layout_marginBottom="10dp"/>
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="60dp"
-            android:background="@drawable/help1"
-            android:layout_marginBottom="6dp"/>
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="6sp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/help1"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="Use available cells (currency) to build white blood cell towers. The towers will attack the bacteria as they come closer."
-            android:textSize="12dp"
+            android:textSize="20sp"
             android:textColor="@color/white"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="20sp"/>
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="60dp"
-            android:background="@drawable/help2"
-            android:layout_marginBottom="6dp"/>
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="6sp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/help2"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="Tapping dark red boxes spawn white blood cells. White blood cells can be tapped again for an upgrade, which will increase their capabilities."
-            android:textSize="12dp"
+            android:textSize="20sp"
             android:textColor="@color/white"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="20sp"/>
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="60dp"
-            android:background="@drawable/help3"
-            android:layout_marginBottom="6dp"/>
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="6sp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/help3"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="Bacteria that reach the end of the path will reduce Trix's health. If his health drops to 0, then it's game over for you and Trix!"
-            android:textSize="12dp"
+            android:textSize="20sp"
             android:textColor="@color/white"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="20sp"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="350sp"
             android:layout_height="wrap_content"
-            android:textSize="16dp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
+            android:background="@drawable/red_button"
+            android:gravity="center"
+            android:shadowColor="#000000"
+            android:shadowDx="-2"
+            android:shadowDy="-2"
+            android:shadowRadius="1"
             android:text="BACK TO MAIN MENU"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:layout_margin="5sp"
             android:id="@+id/tv_back"/>
 
     </LinearLayout>

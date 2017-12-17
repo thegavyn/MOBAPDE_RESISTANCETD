@@ -14,7 +14,7 @@ import java.util.Random;
  */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String SCHEMA = "resistance_td";
+    public static final String SCHEMA = "resistanceTD";
     public static final int VERSION = 1;
 
     public DatabaseHelper(Context context) {
@@ -99,7 +99,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long id = db.insert(Gameplay.TABLE_NAME,
                 null,
                 contentValues);
-        db.close();
 
         return (id != -1);
     }
@@ -152,6 +151,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null,
                 null,
                 null,
-                Gameplay.COLUMN_SCORE + " DESC ");
+                Gameplay.COLUMN_SCORE + " , " + Gameplay.COLUMN_WAVES + " DESC");
     }
 }

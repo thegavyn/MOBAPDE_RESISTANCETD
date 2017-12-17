@@ -39,8 +39,8 @@ public class ScoresAdapter extends CursorRecyclerViewAdapter  {
     public void onBindViewHolder(ScoresViewHolder viewHolder, Cursor cursor) {
         int score = cursor.getInt(cursor.getColumnIndex(Gameplay.COLUMN_SCORE));
         int waves = cursor.getInt(cursor.getColumnIndex(Gameplay.COLUMN_WAVES));
-        viewHolder.tvScore.setText(score + "");
-        viewHolder.tvWaves.setText(waves + "");
+        viewHolder.tvScore.setText(String.valueOf(score));
+        viewHolder.tvWaves.setText(String.valueOf(waves));
     }
 
     @Override

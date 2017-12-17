@@ -11,11 +11,6 @@ import android.graphics.Color;
 public class Projectile extends GameEntity {
 
     private Enemy e;
-    private int dx;
-    private int dy;
-    private double dist;
-    private int vx;
-    private int vy;
     private int r;
     private int damage;
     private int speed;
@@ -58,13 +53,13 @@ public class Projectile extends GameEntity {
         if (!e.isAlive() || !e.spawned)
             despawn();
         if(spawned) {
-            dx = e.getX() + e.width/2 - this.x;
-            dy = e.getY() + e.height/2 - this.y;
-            dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-            vx = (int)(dx / dist * speed);
-            vy = (int)(dy / dist * speed);
-            this.x += this.vx;
-            this.y += this.vy;
+            int dx = e.getX() + e.width/2 - this.x;
+            int dy = e.getY() + e.height/2 - this.y;
+            double dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+            int vx = (int)(dx / dist * speed);
+            int vy = (int)(dy /dist * speed);
+            this.x += vx;
+            this.y += vy;
         }
     }
 

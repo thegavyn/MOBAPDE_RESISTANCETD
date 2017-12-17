@@ -1,6 +1,5 @@
 package edu.dlsu.mobapde.resistancetd;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -365,12 +364,14 @@ public class SinglePlayerGamePanel extends GamePanel {
 	}
 
     public void pause () {
-	    gameThread.pause();
+	    if (gameThread != null)
+    	    gameThread.pause();
 	    bmm.pauseMusic();
     }
 
     public void resume () {
-	    gameThread.unpause();
+	    if(gameThread != null)
+    	    gameThread.unpause();
 	    bmm.resumeMusic();
     }
 
@@ -413,15 +414,14 @@ public class SinglePlayerGamePanel extends GamePanel {
         stageLevelX = screenWidth - cellsPaint.measureText(stageString)/2 - (float) (10*scale);
 
         synchronized (towers) {
-            if (!towers.isEmpty())
+            if (!towers.isEmpty()) {
                 for (Tower tower : towers) {
                     tower.update();
                     if (tower.canUpgrade(cells)) {
                         tower.highlightSpawner();
-                    }
-                    else tower.unhighlightSpawner();
+                    } else tower.unhighlightSpawner();
                     synchronized (enemies) {
-                        for (Enemy e: enemies) {
+                        for (Enemy e : enemies) {
                             Projectile p = tower.attack(e);
                             if (p != null) {
                                 projectiles.add(p);
@@ -430,6 +430,7 @@ public class SinglePlayerGamePanel extends GamePanel {
                         }
                     }
                 }
+            }
         }
 
         synchronized (enemies) {

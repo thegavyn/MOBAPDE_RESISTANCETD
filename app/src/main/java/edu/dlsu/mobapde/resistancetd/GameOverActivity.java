@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 public class GameOverActivity extends Activity {
 
-    TextView tvScore, tvQuit;
-//    TextView tvRetry;
+    private TextView tvScore, tvQuit;
+    private TextView tvRetry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,36 +20,23 @@ public class GameOverActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_game_over);
 
+        initAttributes ();
+    }
+
+    private void initAttributes() {
         tvScore = findViewById(R.id.tv_score);
-//      tvRetry = findViewById(R.id.tv_retry);
+        tvRetry = findViewById(R.id.tv_retry);
         tvQuit = findViewById(R.id.tv_quit);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            DatabaseHelper db = new DatabaseHelper(getBaseContext());
-            int score = extras.getInt("score");
-            int waves = extras.getInt("waves");
-
-            if (score > 0) {
-                Gameplay gameplay = new Gameplay();
-                gameplay.setScore(score);
-                gameplay.setWaves(waves);
-
-                db.addGameplay(gameplay);
+        tvRetry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), MainActivity.class);
+                i.putExtra("retry", 0);
+                startActivity(i);
+                finish ();
             }
-
-            tvScore.setText(score + "");
-        }
-
-//        tvRetry.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(getBaseContext(), MainActivity.class);
-//                i.putExtra("retry", 0);
-//                startActivity(i);
-//                finish();
-//            }
-//        });
+        });
 
         tvQuit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,5 +46,21 @@ public class GameOverActivity extends Activity {
                 finish ();
             }
         });
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            DatabaseHelper db = new DatabaseHelper(getBaseContext());
+            int score = extras.getInt("score");
+            int waves = extras.getInt("waves");
+
+            Gameplay gameplay = new Gameplay();
+            gameplay.setScore(score);
+            gameplay.setWaves(waves);
+
+            db.addGameplay(gameplay);
+
+            tvScore.setText(String.valueOf(score));
+        }
     }
+
 }

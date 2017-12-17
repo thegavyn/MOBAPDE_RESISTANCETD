@@ -24,18 +24,21 @@ public class MainActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
-        try {
-			int n = getIntent().getExtras().getInt("retry", -1);
+        // Background music
+        bmm = new BackgroundMusicManager(getBaseContext());
+        bmm.playMusic(BackgroundMusicManager.MAIN_MENU);
 
-			if (n == 0)
-				startGame(n);
-		} catch (Exception e) {}
+        initAttributes();
 
-		initAttributes();
+        Bundle bundle = getIntent().getExtras();
+        int n = -1;
+        if (bundle != null) {
+            System.out.print("here");
+            n = bundle.getInt("retry", -1);
+        }
 
-		// Background music
-		bmm = new BackgroundMusicManager(getBaseContext());
-		bmm.playMusic(BackgroundMusicManager.MAIN_MENU);
+        if (n == 0)
+            startGame(n);
     }
 
     @Override
@@ -62,52 +65,51 @@ public class MainActivity extends Activity {
 	}
 
     private void initAttributes () {
-		tvMainSinglePlayer = findViewById(R.id.tvMainSinglePlayer);
-		tvMainScore = findViewById(R.id.tvMainScore);
-		tvHelp = findViewById(R.id.tvHelp);
-		tvInfo = findViewById(R.id.tvInfo);
+        tvMainSinglePlayer = findViewById(R.id.tvMainSinglePlayer);
+        tvMainScore = findViewById(R.id.tvMainScore);
+        tvHelp = findViewById(R.id.tvHelp);
+        tvInfo = findViewById(R.id.tvInfo);
 
-		tvMainSinglePlayer.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				startGame(0);
-			}
-		});
+        tvMainSinglePlayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startGame(0);
+            }
+        });
 
-		tvMainScore.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Intent i = new Intent (getBaseContext(), ScoresActivity.class);
-				startActivity(i);
-				finish();
-			}
-		});
+        tvMainScore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getBaseContext(), ScoresActivity.class);
+                startActivity(i);
+            }
+        });
 
-		tvHelp.setOnClickListener(new View.OnClickListener() {
+        tvHelp.setOnClickListener(new View.OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(getBaseContext(), HelpActivity.class);
-				startActivity(i);
-				finish();
-			}
-		});
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), HelpActivity.class);
+                startActivity(i);
+            }
+        });
 
-		tvInfo.setOnClickListener(new View.OnClickListener() {
+        tvInfo.setOnClickListener(new View.OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(getBaseContext(), InfoActivity.class);
-				startActivity(i);
-				finish();
-			}
-		});
-	}
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), InfoActivity.class);
+                startActivity(i);
+            }
+        });
+
+    }
 
 	public void startGame (int gameMode) {
 		switch (gameMode) {
 			case 0:
-				bmm.stopMusic();
+			    if (bmm != null)
+    				bmm.stopMusic();
 				singlePlayerGamePanel = new SinglePlayerGamePanel(this);
 				new GameLoader().execute(singlePlayerGamePanel);
 				break;

@@ -7,6 +7,6 @@
     <string name="failed_message">You failed to help Trix :(</string>
     <string name="game_over">GAME OVER</string>
     <string name="retry">RETRY</string>
-    <string name="quit">BACK TO MAIN MENU</string>
+    <string name="quit">QUIT</string>
     <string name="title_activity_info">InfoActivity</string>
 </resources>

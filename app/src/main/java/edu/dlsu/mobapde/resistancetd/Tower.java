@@ -17,8 +17,9 @@ public class Tower extends GameEntity {
     private int level;
     private int cost;
     private int range;
+    private boolean left;
 
-    public Tower(int x, int y, int width, int height, Spawner spawner, ProjectileSpawner projectileSpawner) {
+    public Tower(int x, int y, int width, int height, Spawner spawner, ProjectileSpawner projectileSpawner, boolean left) {
         super(x, y, width, height, spawner);
         this.projectileSpawner = projectileSpawner;
         level = 0;
@@ -26,6 +27,7 @@ public class Tower extends GameEntity {
         countdown = 0;
         cooldown = 0;
         range = 0;
+        this.left = left;
     }
 
     public int getCost () {
@@ -80,7 +82,7 @@ public class Tower extends GameEntity {
         if (c == WBC.class) {
             this.type = c;
             this.level = level;
-            this.icon = WBC.getIcon(level);
+            this.icon = WBC.getIcon(level, left);
             this.cost = WBC.getCost(level);
             this.range = WBC.getRange (level);
             this.cooldown = WBC.getCooldown (level);

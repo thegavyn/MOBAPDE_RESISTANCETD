@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Bacteria {
 
     private static ArrayList<Bitmap> icon = new ArrayList<>();
-    private static final int baseMoveSpeed = 30;
+    private static final int baseMoveSpeed = 10;
     private static final int baseAttackDamage = 20;
     private static final int baseHealth = 50;
     private static final double scaleMoveSpeed = 1;

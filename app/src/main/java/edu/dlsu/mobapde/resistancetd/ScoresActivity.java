@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Window;
+import android.view.WindowManager;
 
 public class ScoresActivity extends Activity {
 
@@ -15,6 +17,8 @@ public class ScoresActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_scores);
 
         rvScores = findViewById(R.id.rvScores);
@@ -24,7 +28,6 @@ public class ScoresActivity extends Activity {
         rvScores.setAdapter(scoresAdapter);
         rvScores.setLayoutManager (new LinearLayoutManager(getBaseContext()));
     }
-
 
     @Override
     protected void onResume() {

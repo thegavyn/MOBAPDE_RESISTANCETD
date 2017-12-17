@@ -1,10 +1,8 @@
 package edu.dlsu.mobapde.resistancetd;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,7 +15,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-	private TextView tvMainSinglePlayer, tvMainMultiplayer, tvHelp;
+	private TextView tvMainSinglePlayer, tvMainScore, tvHelp;
 	private SharedPreferences dsp;
 	private BackgroundMusicManager bmm;
 
@@ -35,8 +33,6 @@ public class MainActivity extends Activity {
 				startGame(n);
 		} catch (Exception e) {}
 
-		dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-		checkOpeningViewed();
 		initAttributes();
 
 		// Background music
@@ -64,7 +60,7 @@ public class MainActivity extends Activity {
 
     private void initAttributes () {
 		tvMainSinglePlayer = findViewById(R.id.tvMainSinglePlayer);
-		tvMainMultiplayer = findViewById(R.id.tvMainMultiplayer);
+		tvMainScore = findViewById(R.id.tvMainScore);
 		tvHelp = findViewById(R.id.tvHelp);
 
 		tvMainSinglePlayer.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +70,7 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		tvMainMultiplayer.setOnClickListener(new View.OnClickListener() {
+		tvMainScore.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				Intent i = new Intent (getBaseContext(), ScoresActivity.class);
@@ -99,14 +95,6 @@ public class MainActivity extends Activity {
 				new GameLoader().execute(new SinglePlayerGamePanel(this));
 				break;
 			case 1:
-		}
-	}
-
-    private void checkOpeningViewed () {
-		if (!dsp.contains("resistance_td_opening_viewed")) {
-			Intent i = new Intent (getBaseContext(), TrixVideoActivity.class);
-			startActivity(i);
-			finish();
 		}
 	}
 

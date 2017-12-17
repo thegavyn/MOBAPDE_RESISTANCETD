@@ -48,6 +48,7 @@ public abstract class GameEntity {
         this.height = height;
     }
 
+    @SuppressWarnings("unchecked")
     public void despawn () {
         spawned = false;
         spawner.despawn(this);

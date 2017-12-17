@@ -10,7 +10,8 @@ import android.widget.TextView;
 
 public class GameOverActivity extends Activity {
 
-    TextView tvScore, tvRetry, tvQuit;
+    TextView tvScore, tvQuit;
+//    TextView tvRetry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,7 @@ public class GameOverActivity extends Activity {
         setContentView(R.layout.activity_game_over);
 
         tvScore = findViewById(R.id.tv_score);
-        tvRetry = findViewById(R.id.tv_retry);
+//      tvRetry = findViewById(R.id.tv_retry);
         tvQuit = findViewById(R.id.tv_quit);
 
         Bundle extras = getIntent().getExtras();
@@ -40,15 +41,15 @@ public class GameOverActivity extends Activity {
             tvScore.setText(score + "");
         }
 
-        tvRetry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), MainActivity.class);
-                i.putExtra("retry", 0);
-                startActivity(i);
-                finish();
-            }
-        });
+//        tvRetry.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(getBaseContext(), MainActivity.class);
+//                i.putExtra("retry", 0);
+//                startActivity(i);
+//                finish();
+//            }
+//        });
 
         tvQuit.setOnClickListener(new View.OnClickListener() {
             @Override

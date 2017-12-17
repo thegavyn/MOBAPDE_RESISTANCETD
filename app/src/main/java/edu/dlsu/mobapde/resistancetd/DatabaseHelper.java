@@ -111,7 +111,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public ArrayList<Gameplay> getAllGameplayRecords() {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.query(Gameplay.TABLE_NAME, null, null, null, null, null, Gameplay.COLUMN_SCORE + ", " + Gameplay.COLUMN_WAVES + " DESC");
+        Cursor c = db.query(Gameplay.TABLE_NAME, null, null, null, null, null, Gameplay.COLUMN_SCORE + " DESC, " + Gameplay.COLUMN_WAVES + " DESC");
 
         ArrayList<Gameplay> gameplays = null;
 
@@ -139,7 +139,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public Cursor getAllGameplayRecordsCursor() {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.query(Gameplay.TABLE_NAME, null, null, null, null, null, Gameplay.COLUMN_SCORE + ", " + Gameplay.COLUMN_WAVES + " DESC");
+        Cursor c = db.query(Gameplay.TABLE_NAME, null, null, null, null, null, Gameplay.COLUMN_SCORE + " DESC, " + Gameplay.COLUMN_WAVES + " DESC");
         return c;
     }
 }

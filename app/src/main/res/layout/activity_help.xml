@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="Tapping dark red boxes spawn white blood cells. White blood cells can be tapped again for an upgrade, which will increase their capabilities."
+            android:text="Tapping dark red slots spawn white blood cells. White blood cells can be tapped again for an upgrade, which will increase their capabilities."
             android:textSize="20sp"
             android:textColor="@color/white"
             android:layout_marginBottom="20sp"/>

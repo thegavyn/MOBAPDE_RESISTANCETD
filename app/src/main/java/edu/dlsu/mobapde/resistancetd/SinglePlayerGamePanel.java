@@ -474,13 +474,13 @@ public class SinglePlayerGamePanel extends GamePanel {
         }
 
         if (trixHP <= 0) {
+            bmm.stopMusic();
             gameThread.setRunning(false);
             Intent intent = new Intent(getContext(), GameOverActivity.class);
             intent.putExtra("score", score);
             intent.putExtra("waves", stageLevel);
             getContext().startActivity(intent);
             ((Activity)getContext()).finish();
-            bmm.stopMusic();
         }
 
 	}

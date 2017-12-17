@@ -422,10 +422,12 @@ public class SinglePlayerGamePanel extends GamePanel {
                     } else tower.unhighlightSpawner();
                     synchronized (enemies) {
                         for (Enemy e : enemies) {
-                            Projectile p = tower.attack(e);
-                            if (p != null) {
-                                projectiles.add(p);
-                                break;
+                            if (e.isAlive() && e.spawned) {
+                                Projectile p = tower.attack(e);
+                                if (p != null) {
+                                    projectiles.add(p);
+                                    break;
+                                }
                             }
                         }
                     }

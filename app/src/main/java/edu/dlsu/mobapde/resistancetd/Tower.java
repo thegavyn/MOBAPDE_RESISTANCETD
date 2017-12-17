@@ -64,7 +64,7 @@ public class Tower extends GameEntity {
                 if (dist <= range) {
                     projectile = projectileSpawner.spawn(type, level);
                     if (projectile != null) {
-                        projectile.set(type, level);
+                        projectile.set(x+width/2, y+width/2, width, height);
                         projectile.set(enemy);
                         countdown = cooldown;
                     }

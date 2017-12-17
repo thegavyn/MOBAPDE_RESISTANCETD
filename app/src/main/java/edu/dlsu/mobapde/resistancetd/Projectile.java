@@ -52,7 +52,7 @@ public class Projectile extends GameEntity {
     public void update() {
         if (!e.isAlive() || !e.spawned)
             despawn();
-        if(spawned) {
+        else if(spawned) {
             int dx = e.getX() + e.width/2 - this.x;
             int dy = e.getY() + e.height/2 - this.y;
             double dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));

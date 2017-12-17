@@ -109,7 +109,7 @@ public class MainActivity extends Activity {
 		switch (gameMode) {
 			case 0:
 			    if (bmm != null)
-    				bmm.stopMusic();
+				bmm.stopMusic();
 				singlePlayerGamePanel = new SinglePlayerGamePanel(this);
 				new GameLoader().execute(singlePlayerGamePanel);
 				break;

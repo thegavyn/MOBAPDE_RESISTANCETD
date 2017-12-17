@@ -17,16 +17,26 @@ public class GameThread extends Thread {
     private final SurfaceHolder surfaceHolder;
     private GamePanel gamePanel;
     private boolean running;
+    private boolean paused;
     private static Canvas canvas;
 
     public GameThread (SurfaceHolder surfaceHolder, GamePanel gamePanel) {
         super ();
         this.surfaceHolder = surfaceHolder;
         this.gamePanel = gamePanel;
+        paused = false;
     }
 
     public void setRunning (boolean running) {
         this.running = running;
+    }
+
+    public void pause () {
+        paused = true;
+    }
+
+    public void unpause () {
+        paused = false;
     }
 
     private void updateAndDraw () {
@@ -40,6 +50,9 @@ public class GameThread extends Thread {
 
         while (running) {
             canvas = null;
+
+            if (paused)
+                continue;
 
             try {
                 canvas = this.surfaceHolder.lockCanvas ();

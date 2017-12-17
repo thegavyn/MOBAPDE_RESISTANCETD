@@ -358,7 +358,15 @@ public class SinglePlayerGamePanel extends GamePanel {
 		return false;
 	}
 
-	public void spawnEnemies () {
+    public void pause () {
+	    gameThread.pause();
+    }
+
+    public void resume () {
+	    gameThread.unpause();
+    }
+
+    public void spawnEnemies () {
 	    synchronized (enemySpawners) {
             boolean nextRound = true;
             for (EnemySpawner enemySpawner : enemySpawners) {

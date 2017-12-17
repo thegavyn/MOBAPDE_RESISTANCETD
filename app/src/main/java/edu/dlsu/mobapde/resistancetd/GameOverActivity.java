@@ -2,7 +2,6 @@ package edu.dlsu.mobapde.resistancetd;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -20,9 +19,9 @@ public class GameOverActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_game_over);
 
-        tvScore = (TextView) findViewById(R.id.tv_score);
-        tvRetry = (TextView) findViewById(R.id.tv_retry);
-        tvQuit = (TextView) findViewById(R.id.tv_quit);
+        tvScore = findViewById(R.id.tv_score);
+        tvRetry = findViewById(R.id.tv_retry);
+        tvQuit = findViewById(R.id.tv_quit);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {

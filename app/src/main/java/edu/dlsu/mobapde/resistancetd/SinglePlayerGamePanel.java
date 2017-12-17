@@ -209,7 +209,7 @@ public class SinglePlayerGamePanel extends GamePanel {
             }
 
             private void initCells () {
-                cells = 10000;
+                cells = 400;
                 cellsX = (float)(60 * scale);
                 cellsY = (float)(60 * scale);
                 cellsPaint = new Paint();

@@ -50,21 +50,22 @@ public class ScoresActivity extends Activity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        bmm.resumeMusic();
+        scoresAdapter.changeCursor(databaseHelper.getAllGameplayRecordsCursor());
+        bmm.resumeMusic();
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
-        bmm.pauseMusic();
+        bmm.pauseMusic(); //pause player
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         bmm.stopMusic();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        scoresAdapter.changeCursor(databaseHelper.getAllGameplayRecordsCursor());
-        bmm.resumeMusic();
     }
 }

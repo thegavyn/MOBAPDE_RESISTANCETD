@@ -480,6 +480,7 @@ public class SinglePlayerGamePanel extends GamePanel {
         }
 
         if (trixHP <= 0) {
+            bmm.stopMusic();
             gameThread.setRunning(false);
             Intent intent = new Intent(mainActivity.getBaseContext(), GameOverActivity.class);
             intent.putExtra("score", score);

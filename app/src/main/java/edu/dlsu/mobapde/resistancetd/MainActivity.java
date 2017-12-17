@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
     @Override
 	protected void onStop() {
     	super.onStop();
-    	bmm.stopMusic();
+    	bmm.pauseMusic();
 	}
 
     private void initAttributes () {

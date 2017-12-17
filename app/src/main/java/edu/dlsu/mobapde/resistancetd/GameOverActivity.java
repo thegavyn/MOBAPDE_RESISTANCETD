@@ -29,11 +29,13 @@ public class GameOverActivity extends Activity {
             int score = extras.getInt("score");
             int waves = extras.getInt("waves");
 
-            Gameplay gameplay = new Gameplay();
-            gameplay.setScore(score);
-            gameplay.setWaves(waves);
+            if (score > 0) {
+                Gameplay gameplay = new Gameplay();
+                gameplay.setScore(score);
+                gameplay.setWaves(waves);
 
-            db.addGameplay(gameplay);
+                db.addGameplay(gameplay);
+            }
 
             tvScore.setText(score + "");
         }

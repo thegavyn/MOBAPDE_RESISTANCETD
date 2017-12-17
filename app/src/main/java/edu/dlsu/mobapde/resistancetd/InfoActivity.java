@@ -8,7 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-public class HelpActivity extends Activity {
+public class InfoActivity extends Activity {
 
     TextView tvBack;
     private BackgroundMusicManager bmm;

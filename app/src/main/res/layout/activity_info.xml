@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.dlsu.mobapde.resistancetd.InfoActivity">
+
+    <include
+        layout="@layout/icon_logo_layout"
+        android:id="@+id/includeIconLogoLayout"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="40sp"
+        android:background="#60000000"
+        android:padding="20sp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_height="120sp"
+            android:layout_width="match_parent"
+            android:src="@drawable/logo"
+            android:scaleType="centerInside"
+            android:padding="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Resistance TD is the result of the blood, sweat, and tears of Jasper Pillejera, Gavin Sanchez, and Jolene Valenzuela. This game was created by De La Salle University - Manila students under Ms. Courtney Ngo for their MOBAPDE project."
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="We would also like to thank our parents for giving birth to us."
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="20sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Acknowledgements"
+            android:textSize="22sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginBottom="10sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="3 pound universe by Jeris (c) Copyright 2013 Licensed under a Creative Commons Attribution (3.0) license. http://dig.ccmixter.org/files/VJ_Memes/41544 ft. Doxent Zsigmond (doxent)"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="20sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Reusenoise (DNB Mix) by spinningmerkaba (c) Copyright 2017 Licensed under a Creative Commons Attribution (3.0) license. http://dig.ccmixter.org/files/jlbrock44/56531"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="20sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Jolene Valenzuela, who is responsible for all of the in-game art."
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="20sp"/>
+
+        <TextView
+            android:layout_width="350sp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/red_button"
+            android:gravity="center"
+            android:shadowColor="#000000"
+            android:shadowDx="-2"
+            android:shadowDy="-2"
+            android:shadowRadius="1"
+            android:text="BACK TO MAIN MENU"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:layout_margin="5sp"
+            android:id="@+id/tv_back"/>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

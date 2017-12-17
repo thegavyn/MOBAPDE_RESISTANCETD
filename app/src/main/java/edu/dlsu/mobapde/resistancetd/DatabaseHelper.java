@@ -166,7 +166,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public boolean addGameplay(SQLiteDatabase db, Gameplay g) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Gameplay.COLUMN_ID, g.getId());
+        contentValues.put(Gameplay.COLUMN_SCORE, g.getScore());
         contentValues.put(Gameplay.COLUMN_WAVES, g.getWaves());
 
         // id = -1 if fail

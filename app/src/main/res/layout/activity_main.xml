@@ -16,8 +16,22 @@
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:orientation="vertical"
-		android:gravity="center">
+		android:orientation="vertical">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:text="i"
+			android:background="@drawable/gray_button"
+			android:fontFamily="monospace"
+			android:textStyle="bold"
+			android:textSize="28sp"
+			android:textColor="@color/white"
+			android:layout_gravity="right"
+			android:layout_marginRight="20sp"
+			android:layout_marginTop="20sp"
+			android:id="@+id/tvInfo"/>
 
 		<ImageView
 			android:layout_height="0dp"
@@ -25,12 +39,12 @@
 			android:src="@drawable/logo"
 			android:scaleType="centerInside"
 			android:padding="50dp"
-			android:layout_weight="1"/>
+			android:layout_weight="6"/>
 
 		<LinearLayout
 			android:layout_height="0dp"
 			android:layout_width="match_parent"
-			android:layout_weight="1"
+			android:layout_weight="7"
 			android:orientation="vertical"
 			android:gravity="center">
 

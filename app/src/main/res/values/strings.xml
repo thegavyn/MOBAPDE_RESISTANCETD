@@ -8,4 +8,5 @@
     <string name="game_over">GAME OVER</string>
     <string name="retry">RETRY</string>
     <string name="quit">QUIT</string>
+    <string name="title_activity_info">InfoActivity</string>
 </resources>

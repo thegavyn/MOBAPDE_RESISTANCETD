@@ -14,4 +14,8 @@
         <item name="colorAccent">@color/mainBgStart</item>
     </style>
 
+    <style name="NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

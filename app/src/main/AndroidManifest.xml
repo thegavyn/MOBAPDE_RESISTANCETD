@@ -20,15 +20,23 @@
         </activity>
         <activity
             android:name=".HelpActivity"
-            android:screenOrientation="sensorPortrait"></activity>
+            android:screenOrientation="sensorPortrait">
+
+        </activity>
         <activity
             android:name=".GameOverActivity"
-            android:screenOrientation="sensorPortrait"></activity>
-        <activity android:name=".ScoresActivity"></activity>
+            android:screenOrientation="sensorPortrait">
+
+        </activity>
+        <activity android:name=".ScoresActivity"
+                  android:screenOrientation="sensorPortrait">
+
+        </activity>
         <activity
             android:name=".InfoActivity"
-            android:label="@string/title_activity_info"
-            android:theme="@style/NoActionBar"></activity>
+            android:screenOrientation="sensorPortrait">
+
+        </activity>
     </application>
 
 </manifest>

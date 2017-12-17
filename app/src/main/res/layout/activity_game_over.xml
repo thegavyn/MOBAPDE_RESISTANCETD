@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_height="match_parent"
-    android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     tools:context="edu.dlsu.mobapde.resistancetd.GameOverActivity"
     android:background="@drawable/game_over_background"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical">
 
     <ImageView
@@ -23,27 +24,26 @@
         android:orientation="vertical"
         android:gravity="center">
 
-    <ImageView
-        android:padding="20sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/game_over"
-        android:scaleType="fitCenter"/>
+        <ImageView
+            android:padding="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/game_over"
+            android:scaleType="fitCenter"/>
 
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="Score"
-        android:textSize="80sp"
-        android:textStyle="bold"
-        android:fontFamily="serif-monospace"
-        android:textColor="@color/white"
-        android:layout_gravity="center"
-        android:layout_marginBottom="70dp"
-        android:textAlignment="center"
-        android:id="@+id/tv_score"/>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Score"
+            android:textSize="80sp"
+            android:textStyle="bold"
+            android:fontFamily="serif-monospace"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_marginBottom="70dp"
+            android:textAlignment="center"
+            android:id="@+id/tv_score"/>
 
-<!--
         <TextView
             android:id="@+id/tv_retry"
             android:layout_width="230sp"
@@ -60,7 +60,7 @@
             android:shadowRadius="1"
             android:layout_margin="10sp"
             />
--->
+
         <TextView
             android:id="@+id/tv_quit"
             android:layout_width="230sp"

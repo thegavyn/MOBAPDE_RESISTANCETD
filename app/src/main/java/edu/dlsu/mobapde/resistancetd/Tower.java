@@ -85,7 +85,6 @@ public class Tower extends GameEntity {
             this.range = WBC.getRange (level);
             this.cooldown = WBC.getCooldown (level);
             spawned = true;
-            System.out.println (level);
         }
     }
 

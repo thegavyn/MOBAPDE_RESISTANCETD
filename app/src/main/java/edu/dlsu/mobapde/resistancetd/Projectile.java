@@ -23,7 +23,6 @@ public class Projectile extends GameEntity {
     public Projectile(int x, int y, int width, int height, Spawner spawner) {
         super(x, y, width, height, spawner);
         r = (width + height)/16;
-        paint.setColor(Color.parseColor("#FF0000FF"));
     }
 
     public boolean hit () {

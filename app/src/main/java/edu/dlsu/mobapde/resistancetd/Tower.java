@@ -30,17 +30,15 @@ public class Tower extends GameEntity {
         this.left = left;
     }
 
-    public int getCost () {
-        return cost;
-    }
-
-    public int getRange () { return range; }
-
     public void upgrade () {
         if (level < maxLevel) {
             level++;
             set (type, level);
         }
+    }
+
+    public int getCost () {
+        return cost;
     }
 
     public boolean canUpgrade (int cells) {
@@ -83,7 +81,7 @@ public class Tower extends GameEntity {
             this.type = c;
             this.level = level;
             this.icon = WBC.getIcon(level, left);
-            this.cost = WBC.getCost(level);
+            this.cost = WBC.getCost(level + 1);
             this.range = WBC.getRange (level);
             this.cooldown = WBC.getCooldown (level);
             spawned = true;

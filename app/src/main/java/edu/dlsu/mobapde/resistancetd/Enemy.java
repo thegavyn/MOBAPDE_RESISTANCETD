@@ -10,12 +10,12 @@ import android.graphics.Paint;
 
 public class Enemy extends GameEntity {
 
-    protected int health;
-    protected int moveSpeed;
-    protected int attackDamage;
-    protected boolean alive;
-    protected int cells;
-    protected int score;
+    private int health;
+    private int moveSpeed;
+    private int attackDamage;
+    private boolean alive;
+    private int cells;
+    private int score;
 
     public Enemy(int x, int y, int width, int height, Spawner spawner) {
         super(x, y, width, height, spawner);
@@ -31,6 +31,18 @@ public class Enemy extends GameEntity {
 
     public void attack (int damage) {
         this.health -= damage;
+    }
+
+    public int getAttackDamage() {
+        return attackDamage;
+    }
+
+    public int getCells() {
+        return cells;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     @Override

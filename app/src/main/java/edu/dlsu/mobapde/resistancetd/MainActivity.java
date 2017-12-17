@@ -2,11 +2,9 @@ package edu.dlsu.mobapde.resistancetd;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -16,7 +14,6 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 
 	private TextView tvMainSinglePlayer, tvMainScore, tvHelp;
-	private SharedPreferences dsp;
 	private BackgroundMusicManager bmm;
 
 	@Override
@@ -75,6 +72,7 @@ public class MainActivity extends Activity {
 			public void onClick(View view) {
 				Intent i = new Intent (getBaseContext(), ScoresActivity.class);
 				startActivity(i);
+				finish();
 			}
 		});
 
@@ -84,6 +82,7 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				Intent i = new Intent(getBaseContext(), HelpActivity.class);
 				startActivity(i);
+				finish();
 			}
 		});
 	}

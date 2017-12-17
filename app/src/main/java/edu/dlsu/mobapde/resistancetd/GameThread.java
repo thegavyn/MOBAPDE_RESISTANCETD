@@ -8,11 +8,11 @@ import android.view.SurfaceHolder;
  */
 
 public class GameThread extends Thread {
-    public static final int MAX_FPS = 60;
-    public static final int MAX_LOSS = 5;
-    public static final int NANOS_PER_MILLIS = 1000000;
-    public static final int MILLIS_PER_SEC = 1000;
-    public static final int FRAME_PERIOD = MILLIS_PER_SEC/MAX_FPS;
+    private static final int MAX_FPS = 60;
+    private static final int MAX_LOSS = 5;
+    private static final int NANOS_PER_MILLIS = 1000000;
+    private static final int MILLIS_PER_SEC = 1000;
+    private static final int FRAME_PERIOD = MILLIS_PER_SEC/MAX_FPS;
 
     private final SurfaceHolder surfaceHolder;
     private GamePanel gamePanel;

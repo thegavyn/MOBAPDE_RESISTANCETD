@@ -106,6 +106,9 @@ public class SinglePlayerGamePanel extends GamePanel {
         enemies = new ArrayList<>();
         projectiles = new ArrayList<>();
 
+        WBC.setScale(scale);
+        Bacteria.setScale(scale);
+
         // Background Music
         bmm = new BackgroundMusicManager(context);
         bmm.playMusic(BackgroundMusicManager.GAME_PANEL);
@@ -206,7 +209,7 @@ public class SinglePlayerGamePanel extends GamePanel {
             }
 
             private void initCells () {
-                cells = 1000;
+                cells = 10000;
                 cellsX = (float)(60 * scale);
                 cellsY = (float)(60 * scale);
                 cellsPaint = new Paint();
@@ -229,6 +232,7 @@ public class SinglePlayerGamePanel extends GamePanel {
                 stageLevelPaint.setStrokeWidth(scaledStrokeWidth);
                 stageLevelPaint.setTextAlign(Paint.Align.CENTER);
                 stageLevelPaint.setStyle(Paint.Style.FILL);
+                initUpdate();
             }
 
             private void initTrix () {
@@ -246,9 +250,9 @@ public class SinglePlayerGamePanel extends GamePanel {
             }
 
             private void initUpdate () {
-                currInit += 10;
+                currInit += 12;
                 try {
-                    Thread.sleep(1);
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -264,15 +268,17 @@ public class SinglePlayerGamePanel extends GamePanel {
                 initStageLevel();
                 initTrix();
                 spawnEnemies();
+                initUpdate();
 
                 currInit = MAX_INIT - 1;
                 try {
-                    Thread.sleep(150);
+                    Thread.sleep(200);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 				currInit = MAX_INIT;
 			}
+
 		}.start();
 
 	}
@@ -319,7 +325,8 @@ public class SinglePlayerGamePanel extends GamePanel {
             synchronized (towers) {
                 if (!towers.isEmpty()) {
                     for (Tower t : towers) {
-                        if (t.intersects(x, y)) {
+                        if (t.intersects(x, y) && t.canUpgrade(cells)) {
+                            cells -= t.getCost();
                             t.upgrade();
                         }
                     }
@@ -329,21 +336,17 @@ public class SinglePlayerGamePanel extends GamePanel {
             synchronized (towerSpawners) {
                 for (TowerSpawner ts : towerSpawners) {
 
-                    if (ts.intersects(x, y)) {
-                        System.out.println("clicked");
-
-                        if (WBC.getCost(1) <= cells) {
+                    if (ts.intersects(x, y) && ts.canSpawn() &&
+                            WBC.getCost(1) <= cells) {
                             Tower t = ts.spawn(WBC.class, 1);
-                            cells -= WBC.getCost(1);
 
                             if (t != null) {
                                 synchronized (towers) {
-                                    towers.add(t);
                                     sem.playSFX(SoundEffectsManager.BUILD1);
+                                    towers.add(t);
+                                    cells -= WBC.getCost(1);
                                 }
                             }
-
-                        }
 
                     }
 
@@ -387,10 +390,10 @@ public class SinglePlayerGamePanel extends GamePanel {
         cellsString = new StringBuilder().append("Cells: ").append(cells).toString();
         cellsX = cellsPaint.measureText(cellsString)/2 + (float) (10 * scale);
 
-        trixString = new StringBuilder().append("HP: ").append(trixHP).toString();
+        trixString = new StringBuilder().append("Health: ").append(trixHP).toString();
         trixHPX = screenWidth - cellsPaint.measureText(trixString)/2 - (float) (10*scale);
 
-        stageString = new StringBuilder().append("Stage: ").append(stageLevel).toString();
+        stageString = new StringBuilder().append("Wave: ").append(stageLevel).toString();
         stageLevelX = screenWidth - cellsPaint.measureText(stageString)/2 - (float) (10*scale);
 
         synchronized (towers) {
@@ -421,13 +424,13 @@ public class SinglePlayerGamePanel extends GamePanel {
                 e.update();
                 if (!e.isAlive ()) {
                     sem.playSFX(SoundEffectsManager.BACDEATH);
-                    score += e.score;
-                    cells += e.cells;
+                    score += e.getScore ();
+                    cells += e.getCells ();
                     e.despawn();
                     iterator.remove();
                 }
                 else if (e.getY() > screenHeight) {
-                    trixHP -= e.attackDamage;
+                    trixHP -= e.getAttackDamage ();
                     if (trixHP < 100 && trixHP > 60)
                         sem.playSFX(SoundEffectsManager.PAIN1);
                     else if (trixHP <= 60 && trixHP > 30)

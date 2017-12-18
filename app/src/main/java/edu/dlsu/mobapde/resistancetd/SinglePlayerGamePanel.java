@@ -217,7 +217,7 @@ public class SinglePlayerGamePanel extends GamePanel {
             private void initCells () {
                 cells = 400;
                 cellsX = (float)(60 * scale);
-                cellsY = (float)(60 * scale);
+                cellsY = (float)(screenHeight - 30* scale);
                 cellsPaint = new Paint();
                 cellsPaint.setColor(Color.WHITE);
                 cellsPaint.setTextSize(scaledTextSize);
@@ -244,7 +244,7 @@ public class SinglePlayerGamePanel extends GamePanel {
             private void initTrix () {
                 trixHP = 100;
                 trixHPX = (float)(60 * scale);
-                trixHPY = (float)(60 * scale);
+                trixHPY = (float)(screenHeight - 30 * scale);
                 trixHPPaint = new Paint();
                 trixHPPaint.setColor(Color.WHITE);
                 trixHPPaint.setTextSize(scaledTextSize);
@@ -507,11 +507,6 @@ public class SinglePlayerGamePanel extends GamePanel {
         super.draw(canvas);
         canvas.drawBitmap(backgroundIcon, null, bgRect, new Paint());
 
-        canvas.drawText(scoreString, scoreX, scoreY, scorePaint);
-        canvas.drawText(cellsString, cellsX, cellsY, cellsPaint);
-        canvas.drawText(trixString, trixHPX, trixHPY, trixHPPaint);
-        canvas.drawText(stageString, stageLevelX, stageLevelY, stageLevelPaint);
-
         synchronized (towerSpawners) {
             for (int i = 0; i < towerSpawners.size(); i++)
                 towerSpawners.get(i).draw(canvas);
@@ -532,6 +527,12 @@ public class SinglePlayerGamePanel extends GamePanel {
                 projectiles.get(i).draw(canvas);
         }
 
-	}
+        canvas.drawText(scoreString, scoreX, scoreY, scorePaint);
+        canvas.drawText(cellsString, cellsX, cellsY, cellsPaint);
+        canvas.drawText(trixString, trixHPX, trixHPY, trixHPPaint);
+        canvas.drawText(stageString, stageLevelX, stageLevelY, stageLevelPaint);
+
+
+    }
 
 }

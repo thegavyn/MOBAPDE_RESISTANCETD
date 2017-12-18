@@ -110,9 +110,10 @@ public class SinglePlayerGamePanel extends GamePanel {
         enemies = new ArrayList<>();
         projectiles = new ArrayList<>();
 
-        WBC.setScale(scale);
+        WBC.setScale(1920.0*1080.0/((double)screenWidth * screenHeight));
         WBC.setBaseRange((screenWidth/2));
-        Bacteria.setScale(scale);
+        //Bacteria.setScale(scale);
+        Bacteria.setHeight(screenHeight);
 
         // Background Music
         bmm = new BackgroundMusicManager(context);

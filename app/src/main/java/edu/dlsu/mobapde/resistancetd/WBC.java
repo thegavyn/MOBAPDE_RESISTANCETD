@@ -17,14 +17,14 @@ public class WBC {
     private static ArrayList<Bitmap> rightIcon = new ArrayList<>();
 
     private static final int baseCost = 100;
-    private static final int baseDamage = 8;
-    private static final int baseSpeed = 8;
+    private static final int baseDamage = 6;
+    private static final int baseSpeed = 6;
     private static int baseRange;
-    private static final int baseCooldown = 20;
+    private static final int baseCooldown = 25;
 
     private static final int scaleCost = 4;
-    private static final int scaleDamage = 6;
-    private static final int scaleSpeed = 2;
+    private static final int scaleDamage = 5;
+    private static final int scaleSpeed = 1;
     private static int scaleRange;
     private static final int scaleCooldown = 2;
 
@@ -76,8 +76,8 @@ public class WBC {
     }
 
     public static void setBaseRange (int range) {
+        WBC.scaleRange = range/16;
         WBC.baseRange = range;
-        WBC.scaleRange = range/8;
     }
 
 }

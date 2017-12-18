@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MOBAPDE_RESISTANCETD.iml" filepath="$PROJECT_DIR$/MOBAPDE_RESISTANCETD.iml" />
-      <module fileurl="file://D:\Github Repositories\MOBAPDE_RESISTANCETD\MOBAPDE_RESISTANCETD.iml" filepath="D:\Github Repositories\MOBAPDE_RESISTANCETD\MOBAPDE_RESISTANCETD.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

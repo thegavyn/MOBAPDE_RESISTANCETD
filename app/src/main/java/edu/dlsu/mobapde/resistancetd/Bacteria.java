@@ -12,22 +12,23 @@ import java.util.ArrayList;
 
 public class Bacteria {
 
-    public static double scale;
+    private static int height;
+    private static double scale;
     private static ArrayList<Bitmap> icon = new ArrayList<>();
 
-    private static final int baseMoveSpeed = 2;
+    private static final int baseMoveSpeed = 3;
     private static final int baseAttackDamage = 1;
-    private static final int baseHealth = 50;
-    private static final int baseCells = 8;
-    private static final int baseScore = 5;
+    private static final int baseHealth = 70;
+    private static final int baseCells = 5;
+    private static final int baseScore = 3;
 
     private static final double scaleMoveSpeed = 1;
     private static final double scaleAttackDamage = 1;
-    private static final double scaleHealth = 4;
-    private static final int scaleCells = 2;
-    private static final int scaleScore = 4;
+    private static final double scaleHealth = 10;
+    private static final int scaleCells = 1;
+    private static final int scaleScore = 2;
 
-    private static final int maxMoveSpeed = 5;
+    private static final int maxMoveSpeed = 10;
     private static final int maxAttackDamage = 100;
     private static final int maxHealth = 50000;
 
@@ -54,7 +55,10 @@ public class Bacteria {
         if (speed > maxMoveSpeed)
             speed = maxMoveSpeed;
 
-        speed = (int) (speed * scale);
+        if (speed != 0)
+            scale = height / (1920.0/speed);
+
+        speed = (int) (scale);
 
         return speed;
     }
@@ -78,6 +82,10 @@ public class Bacteria {
 
     public static void setScale (double scale) {
         Bacteria.scale = scale;
+    }
+
+    public static void setHeight (int height) {
+        Bacteria.height = height;
     }
 
 }

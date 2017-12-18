@@ -37,6 +37,10 @@ public class Tower extends GameEntity {
         }
     }
 
+    public int getLevel() {
+        return level;
+    }
+
     public int getCost () {
         return cost;
     }

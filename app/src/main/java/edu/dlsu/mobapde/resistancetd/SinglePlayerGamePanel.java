@@ -334,6 +334,10 @@ public class SinglePlayerGamePanel extends GamePanel {
                         if (t.intersects(x, y) && t.canUpgrade(cells)) {
                             cells -= t.getCost();
                             t.upgrade();
+                            if (t.getLevel() == 2)
+                                sem.playSFX(SoundEffectsManager.BUILD2);
+                            else if (t.getLevel() == 3)
+                                sem.playSFX(SoundEffectsManager.BUILD3);
                         }
                     }
                 }

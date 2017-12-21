@@ -28,7 +28,7 @@ public class Bacteria {
     private static final int scaleCells = 1;
     private static final int scaleScore = 2;
 
-    private static final int maxMoveSpeed = 10;
+    private static final int maxMoveSpeed = 8;
     private static final int maxAttackDamage = 100;
     private static final int maxHealth = 50000;
 

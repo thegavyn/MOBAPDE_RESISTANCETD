@@ -23,7 +23,7 @@ public class WBC {
     private static final int baseCooldown = 25;
 
     private static final int scaleCost = 4;
-    private static final int scaleDamage = 5;
+    private static final int scaleDamage = 4;
     private static final int scaleSpeed = 1;
     private static int scaleRange;
     private static final int scaleCooldown = 2;

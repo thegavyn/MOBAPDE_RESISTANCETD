@@ -8,7 +8,7 @@ import android.view.SurfaceHolder;
  */
 
 public class GameThread extends Thread {
-    private static final int MAX_FPS = 60;
+    private static final int MAX_FPS = 50;
     private static final int MAX_LOSS = 5;
     private static final int NANOS_PER_MILLIS = 1000000;
     private static final int MILLIS_PER_SEC = 1000;
